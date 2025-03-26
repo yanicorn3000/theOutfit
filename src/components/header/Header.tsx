@@ -10,9 +10,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const navItems: { id: string; title: string; link: string }[] = [
-  { id: "category-1", title: "Ona", link: "/women" },
-  { id: "category-2", title: "On", link: "/men" },
-  { id: "category-3", title: "Akcesoria", link: "/accessories" },
+  { id: "category-1", title: "Womenswear", link: "/women" },
+  { id: "category-2", title: "Menswear", link: "/men" },
+  { id: "category-3", title: "Jewellery", link: "/accessories" },
 ];
 
 const Header: React.FC = () => {

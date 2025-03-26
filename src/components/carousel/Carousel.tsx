@@ -13,19 +13,19 @@ const banners: Banner[] = [
   {
     id: "banner-1",
     image: "1.png",
-    text: "Nowa kolekcja damska 2025",
+    text: "Women's New Arrivals",
     color: "text-white",
   },
   {
     id: "banner-2",
     image: "2.png",
-    text: "Outlet do -70%",
+    text: "Outlet up to 70%",
     color: "text-gray-600",
   },
   {
     id: "banner-3",
     image: "3.png",
-    text: "Nowa kolekcja męska 2025",
+    text: "Men's New Arrivals",
     color: "text-white",
   },
 ];
