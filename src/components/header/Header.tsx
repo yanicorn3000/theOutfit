@@ -10,9 +10,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const navItems: { id: string; title: string; link: string }[] = [
-  { id: "category-1", title: "Womenswear", link: "/women" },
-  { id: "category-2", title: "Menswear", link: "/men" },
-  { id: "category-3", title: "Jewellery", link: "/accessories" },
+  { id: "category-1", title: "Womenswear", link: "/outfit/women" },
+  { id: "category-2", title: "Menswear", link: "/outfit/men" },
+  { id: "category-3", title: "Jewellery", link: "/outfit/accessories" },
 ];
 
 const Header: React.FC = () => {
@@ -22,7 +22,7 @@ const Header: React.FC = () => {
   return (
     <nav className="bg-white md:shadow-md p-6 sticky">
       <div className="container mx-auto flex flex-col items-center">
-        <Link to="/" className="text-3xl font-bold text-gray-800 mb-2">
+        <Link to="/outfit" className="text-3xl font-bold text-gray-800 mb-2">
           THE OUTFIT
         </Link>
 
