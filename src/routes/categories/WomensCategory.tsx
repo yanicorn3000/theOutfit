@@ -1,13 +1,8 @@
-import { fetchProductsByCategory } from "../../api";
-import { useQuery } from "@tanstack/react-query";
+import { useProductsByCategory } from "../../api";
 import List from "../../components/products/List";
-import { Product } from "../../components/products/ProductList";
 
 const WomensCategory: React.FC = () => {
-  const { data, isLoading, error } = useQuery<Product[]>({
-    queryKey: ["womens"],
-    queryFn: () => fetchProductsByCategory("women's clothing"),
-  });
+  const { data, isLoading, error } = useProductsByCategory("women's clothing");
 
   if (isLoading) return <div className="text-center">Loading...</div>;
   if (error)

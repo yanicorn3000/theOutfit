@@ -43,7 +43,7 @@ const Header: React.FC = () => {
 
           <div className="flex items-center md:space-x-4 justify-between flex-row-reverse w-full">
             <div className="flex gap-5 flex-row-reverse items-center">
-              <Link to="/cart" className="relative">
+              <Link to="/outfit/cart" className="relative">
                 <FontAwesomeIcon
                   icon={faCartShopping}
                   className="text-gray-400 text-2xl"
@@ -62,7 +62,7 @@ const Header: React.FC = () => {
                 />
               </Link>
 
-              <Link to="/user">
+              <Link to="/favories">
                 <FontAwesomeIcon
                   icon={faHeart}
                   className="text-gray-400 text-2xl"

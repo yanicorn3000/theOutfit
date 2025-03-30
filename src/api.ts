@@ -19,7 +19,7 @@ export const fetchProducts = async () => {
   return allProducts.sort(() => 0.5 - Math.random()).slice(0, 8);
 };
 
-export const fetchProductsByCategory = async (
+const fetchProductsByCategory = async (
   category: string
 ): Promise<Product[]> => {
   try {
@@ -67,7 +67,7 @@ export const sendCartToApi = async (
   }
 };
 
-const fetchSingleProduct = async (productId: number) => {
+const fetchSingleProduct = async (productId: string) => {
   if (!productId) throw new Error("Repo ID is required");
   try {
     const response = await fetch(`${API}/products/${productId}`);
@@ -84,11 +84,20 @@ const fetchSingleProduct = async (productId: number) => {
   }
 };
 
-export const useSingleProduct = (productId: number) => {
+export const useSingleProduct = (productId: string) => {
   return useQuery({
     queryKey: ["product", productId],
     queryFn: () => fetchSingleProduct(productId),
     enabled: !!productId,
+    staleTime: 1000 * 60 * 5,
+  });
+};
+
+export const useProductsByCategory = (category: string) => {
+  return useQuery({
+    queryKey: ["category", category],
+    queryFn: () => fetchProductsByCategory(category),
+    enabled: !!category,
     staleTime: 1000 * 60 * 5,
   });
 };

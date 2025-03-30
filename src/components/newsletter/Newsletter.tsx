@@ -76,7 +76,7 @@ const Newsletter: React.FC = () => {
 
         <button
           type="submit"
-          className="p-2 bg-gray-700 text-white rounded-r-md hover:bg-gray-500 font-semibold"
+          className="p-2 bg-gray-700 text-white rounded-r-md hover:bg-gray-500  cursor-pointer"
           disabled={isLoading}
         >
           {isLoading ? "Subscribing..." : "Subscribe"}
