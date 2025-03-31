@@ -1,5 +1,14 @@
-import { Product } from "./components/products/ProductList";
+import { Product } from "./types";
 import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { UserData } from "./routes/user/Register";
+import { loginSuccess } from "./redux/authSlice";
+import { useDispatch } from "react-redux";
+import { getUser } from "./utils";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
+import { LoginData } from "./types";
+import { LoginResponse } from "./types";
 
 const API = "https://fakestoreapi.com";
 const categories = ["men's clothing", "women's clothing", "jewelery"];
@@ -37,9 +46,32 @@ const fetchProductsByCategory = async (
   }
 };
 
+const fetchSingleProduct = async (productId: string) => {
+  if (!productId) throw new Error("Repo ID is required");
+  try {
+    const response = await fetch(`${API}/products/${productId}`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const responseJson = await response.json();
+
+    return responseJson;
+  } catch (error) {
+    console.error("Fetching error", error);
+    throw error;
+  }
+};
+
 export const sendCartToApi = async (
   cartItems: { id: number; quantity: number; size: string }[]
 ) => {
+  const userId = getUser()?.id;
+
+  if (!userId) {
+    throw new Error("User is not logged in");
+  }
+
   try {
     const response = await fetch(`${API}/carts`, {
       method: "POST",
@@ -47,7 +79,7 @@ export const sendCartToApi = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: 1,
+        userId: Number(userId),
         date: new Date().toISOString().split("T")[0],
         products: cartItems.map((item) => ({
           productId: item.id,
@@ -67,21 +99,111 @@ export const sendCartToApi = async (
   }
 };
 
-const fetchSingleProduct = async (productId: string) => {
-  if (!productId) throw new Error("Repo ID is required");
+const addUserToApi = async (data: UserData) => {
   try {
-    const response = await fetch(`${API}/products/${productId}`);
+    const response = await fetch(`${API}/users`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error("Failed to create user");
     }
-    const responseJson = await response.json();
 
-    return responseJson;
+    const result = await response.json();
+    return result; // Zwracamy pełne dane użytkownika, w tym ID
   } catch (error) {
-    console.error("Fetching error", error);
-    throw error;
+    throw new Error(`Error creating user: ${error}`);
   }
+};
+
+const loginUser = async (data: LoginData): Promise<LoginResponse> => {
+  const response = await fetch(`${API}/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Invalid credentials");
+  }
+
+  return response.json();
+};
+
+const fetchUserData = async (userId?: number) => {
+  const token = localStorage.getItem("token");
+  const response = await fetch(`${API}/users/${userId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`, // Użycie tokenu do autoryzacji
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user data");
+  }
+
+  return response.json();
+};
+
+//HOOKS
+
+export const useUserData = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const userId = user?.id;
+
+  return useQuery({
+    queryKey: ["user", userId],
+    queryFn: () => fetchUserData(userId),
+    enabled: !!userId,
+    staleTime: 1000 * 60 * 5,
+  });
+};
+
+export const useSendCart = () => {
+  return useMutation({
+    mutationFn: sendCartToApi,
+    onSuccess: (data) => {
+      alert("Cart sent successfully!");
+      console.log("Cart response:", data);
+    },
+    onError: (error) => {
+      alert("Error sending cart: " + error.message);
+    },
+  });
+};
+
+export const useLogin = () => {
+  const dispatch = useDispatch();
+
+  return useMutation<LoginResponse, Error, LoginData>({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      localStorage.setItem("token", data.token);
+      const user = getUser();
+      dispatch(loginSuccess(user));
+    },
+    onError: () => {
+      alert("Invalid username or password");
+    },
+  });
+};
+
+export const useAddUserToApi = () => {
+  const mutation = useMutation({
+    mutationFn: addUserToApi,
+    onSuccess: (data) => {
+      console.log(`User created! ID: ${data.id}`);
+    },
+    onError: (error) => {
+      console.error("Error:", error);
+      alert("Error creating user");
+    },
+  });
+
+  return mutation;
 };
 
 export const useSingleProduct = (productId: string) => {

@@ -1,21 +1,7 @@
 import { fetchProducts } from "../../api";
 import { useQuery } from "@tanstack/react-query";
 import List from "./List";
-
-type Rating = {
-  rate: number;
-  count: number;
-};
-
-export type Product = {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: Rating;
-};
+import { Product } from "../../types";
 
 const ProductList: React.FC = () => {
   const { data, isLoading, error } = useQuery<Product[]>({

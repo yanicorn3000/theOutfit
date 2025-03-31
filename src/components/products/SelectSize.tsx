@@ -24,16 +24,16 @@ const SelectSize: React.FC<SizeProps> = ({
 
   return (
     <>
-      <div className="relative w-full">
+      <div className="relative w-full mt-2">
         <select
           value={selectedSize || ""}
           onChange={(e) => setSelectedSize(e.target.value)}
           className={clsx(
-            "transition duration-300 appearance-none cursor-pointer bg-white  text-gray-700 focus:outline-none focus:ring-2  focus:ring-blue-400 focus:border-blue-400 border border-gray-300 rounded-md ",
+            " transition duration-300 w-full appearance-none cursor-pointer bg-white  text-gray-700 focus:outline-none focus:ring-2  focus:ring-blue-400 focus:border-blue-400 border border-gray-300 rounded-md ",
 
             {
-              "p-3 mt-2 w-full": variant === "primary",
-              "p-2 w-3xs mt-1": variant === "secondary",
+              "p-3 text-base ": variant === "primary",
+              "p-2 text-sm ": variant === "secondary",
             }
           )}
         >
@@ -50,14 +50,14 @@ const SelectSize: React.FC<SizeProps> = ({
         </select>
         <div
           className={clsx(
-            "absolute top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none",
+            "absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none  text-gray-500",
             {
-              "right-5 ": variant === "primary",
-              "right-10": variant === "secondary",
+              "text-base ": variant === "primary",
+              "text-sm": variant === "secondary",
             }
           )}
         >
-          <FontAwesomeIcon icon={faChevronDown} className="-m-1" />
+          <FontAwesomeIcon icon={faChevronDown} className=" text-gray-500" />
         </div>
       </div>
     </>

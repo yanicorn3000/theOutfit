@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCartShopping,
@@ -8,6 +8,9 @@ import {
   faUser,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+import clsx from "clsx";
 
 const navItems: { id: string; title: string; link: string }[] = [
   { id: "category-1", title: "Womenswear", link: "/outfit/women" },
@@ -16,9 +19,10 @@ const navItems: { id: string; title: string; link: string }[] = [
 ];
 
 const Header: React.FC = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const cartItemCount = 9;
-
+  const cart = useSelector((state: RootState) => state.cart.items);
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
   return (
     <nav className="bg-white md:shadow-md p-6 sticky">
       <div className="container mx-auto flex flex-col items-center">
@@ -29,11 +33,15 @@ const Header: React.FC = () => {
         <div className="w-full flex justify-between items-center">
           <div className="hidden md:flex space-x-8">
             {navItems.map((item) => {
+              const isActive = location.pathname === item.link;
               return (
                 <Link
                   key={item.id}
                   to={item.link}
-                  className="hover:text-gray-600 text-lg"
+                  className={clsx(
+                    "hover:text-gray-600 text-lg",
+                    isActive ? "font-bold text-gray-800" : "text-gray-600"
+                  )}
                 >
                   {item.title}
                 </Link>
@@ -55,7 +63,7 @@ const Header: React.FC = () => {
                 )}
               </Link>
 
-              <Link to="/user">
+              <Link to="/outfit/login">
                 <FontAwesomeIcon
                   icon={faUser}
                   className="text-gray-400 text-2xl"

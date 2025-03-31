@@ -13,8 +13,10 @@ type CartState = {
   items: CartItem[];
 };
 
+const savedCart = localStorage.getItem("cart");
+
 const initialState: CartState = {
-  items: [],
+  items: savedCart ? JSON.parse(savedCart) : [],
 };
 
 const cartSlice = createSlice({
@@ -31,6 +33,7 @@ const cartSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
     removeFromCart: (
       state,
@@ -50,9 +53,11 @@ const cartSlice = createSlice({
           );
         }
       }
+      localStorage.setItem("cart", JSON.stringify(state.items));
     },
     clearCart: (state) => {
       state.items = [];
+      localStorage.removeItem("cart");
     },
   },
 });

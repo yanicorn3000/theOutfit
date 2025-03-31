@@ -5,8 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
+//dodac przycis do wyczyszczenia koszyka
+
 const Cart = () => {
   const cart = useSelector((state: RootState) => state.cart.items);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   const dispatch = useDispatch();
   const subtotal = cart.reduce((acc, curr) => {
     return acc + curr.price * curr.quantity;
@@ -105,9 +110,16 @@ const Cart = () => {
               >
                 Back to shopping
               </Link>
-              <button className="bg-gray-700 text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2 border-none transition duration-300 ">
+              <Link
+                to={
+                  isAuthenticated
+                    ? "/outfit/checkout"
+                    : "/outfit/login?redirect=/outfit/checkout"
+                }
+                className="bg-gray-700 text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2 border-none transition duration-300 "
+              >
                 Go to Checkout
-              </button>
+              </Link>
             </div>
           </div>
         </div>
