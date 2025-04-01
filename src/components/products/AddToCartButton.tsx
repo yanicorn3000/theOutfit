@@ -3,17 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addToCart } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import clsx from "clsx";
-
-type AddToCartProps = {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  selectedSize: string;
-  variant?: "primary" | "secondary";
-};
+import { AddToCartProps } from "../../types";
 
 const AddToCartButton: React.FC<AddToCartProps> = ({
   id,
@@ -21,15 +12,17 @@ const AddToCartButton: React.FC<AddToCartProps> = ({
   price,
   image,
   selectedSize,
+  setIsError,
   variant = "primary",
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleAddToCart = () => {
     if (selectedSize === "Select size") {
-      alert("Please, select size");
-      return;
+      return setIsError(true);
     }
+
+    setIsError(false);
 
     const productToAdd = {
       id,
@@ -49,10 +42,10 @@ const AddToCartButton: React.FC<AddToCartProps> = ({
     <button
       onClick={handleAddToCart}
       className={clsx(
-        "flex items-center justify-center gap-2  bg-gray-700 text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2 transition duration-300 ",
+        "flex items-center justify-center gap-2 bg-gray-700 text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2 transition duration-300 w-full",
         {
-          "w-full text-lg mt-4": variant === "primary",
-          "justify-self-center w-3xs text-md mt-3": variant === "secondary",
+          "max-w-3xl text-lg mt-4": variant === "primary",
+          "justify-self-center max-w-xs text-md mt-3": variant === "secondary",
         }
       )}
     >

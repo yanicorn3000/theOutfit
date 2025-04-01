@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Stars from "./Stars";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Product } from "./ProductList";
+import { Product } from "../../types";
 import { useState } from "react";
 
 type ProductCardProps = {
@@ -13,6 +13,7 @@ type ProductCardProps = {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState<string>("Select size");
+  const [isError, setIsError] = useState<boolean>(false);
 
   return (
     <div className="group relative overflow-hidden">
@@ -57,6 +58,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           variant="secondary"
           selectedSize={selectedSize}
           setSelectedSize={setSelectedSize}
+          isError={isError}
+          setIsError={setIsError}
         />
         <AddToCartButton
           selectedSize={selectedSize}
@@ -65,6 +68,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           price={product.price}
           image={product.image}
           variant="secondary"
+          isError={isError}
+          setIsError={setIsError}
         />
       </div>
     </div>

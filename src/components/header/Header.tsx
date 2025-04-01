@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCartShopping,
   faXmark,
   faBars,
-  faUser,
+  faCircleUser,
   faHeart,
+  faShoppingCart,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
@@ -23,6 +24,10 @@ const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const cart = useSelector((state: RootState) => state.cart.items);
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
   return (
     <nav className="bg-white md:shadow-md p-6 sticky">
       <div className="container mx-auto flex flex-col items-center">
@@ -53,27 +58,34 @@ const Header: React.FC = () => {
             <div className="flex gap-5 flex-row-reverse items-center">
               <Link to="/outfit/cart" className="relative">
                 <FontAwesomeIcon
-                  icon={faCartShopping}
-                  className="text-gray-400 text-2xl"
+                  icon={faShoppingCart}
+                  className="text-gray-400 text-2xl hover:text-gray-500"
                 />
                 {cartItemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-400 text-white font-semibold text-xs rounded-[2.5rem] min-w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-rose-400 text-white font-semibold text-xs rounded-[2.5rem] min-w-5 h-5 flex items-center justify-center">
                     {cartItemCount}
                   </span>
                 )}
               </Link>
 
-              <Link to="/outfit/login">
-                <FontAwesomeIcon
-                  icon={faUser}
-                  className="text-gray-400 text-2xl"
-                />
+              <Link to="/outfit/login" className="relative">
+                {isAuthenticated ? (
+                  <FontAwesomeIcon
+                    icon={faCircleUser}
+                    className="text-3xl text-emerald-400  hover:text-emerald-500"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className="text-2xl text-gray-400  hover:text-gray-500"
+                  />
+                )}
               </Link>
 
-              <Link to="/favories">
+              <Link to="/outfit/favories">
                 <FontAwesomeIcon
                   icon={faHeart}
-                  className="text-gray-400 text-2xl"
+                  className="text-gray-400 text-2xl hover:text-gray-500"
                 />
               </Link>
             </div>

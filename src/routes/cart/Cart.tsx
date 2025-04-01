@@ -50,10 +50,10 @@ const Cart = () => {
       ) : (
         <div className="grid grid-cols-2 mt-6 w-full gap-8">
           <ul className="flex flex-col w-full gap-4 max-w-2xl">
-            {cart.map((item) => {
+            {cart.map((item, index) => {
               return (
                 <li
-                  key={item.id}
+                  key={index}
                   className="flex justify-between items-start w-full  gap-4 py-4 border-b border-b-gray-300 last-of-type:border-none"
                 >
                   <img

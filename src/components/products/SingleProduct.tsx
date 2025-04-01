@@ -13,6 +13,7 @@ const SingleProduct = () => {
     error,
   } = useSingleProduct(productId as string);
   const [selectedSize, setSelectedSize] = useState<string>("Select size");
+  const [isError, setIsError] = useState<boolean>(false);
 
   if (isLoading) return <div className="text-center">Loading...</div>;
   if (error instanceof Error)
@@ -44,6 +45,8 @@ const SingleProduct = () => {
           variant="primary"
           selectedSize={selectedSize}
           setSelectedSize={setSelectedSize}
+          isError={isError}
+          setIsError={setIsError}
         />
         <AddToCartButton
           selectedSize={selectedSize}
@@ -52,6 +55,8 @@ const SingleProduct = () => {
           price={product.price}
           image={product.image}
           variant="primary"
+          isError={isError}
+          setIsError={setIsError}
         />
       </div>
     </div>

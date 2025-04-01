@@ -84,15 +84,17 @@ const Newsletter: React.FC = () => {
       </form>
 
       {errors.email && (
-        <p className="text-red-500 text-sm">{errors.email.message}</p>
+        <p className="text-rose-500 bg-red-100 text-center px-2 py-1 rounded-md text-sm ">
+          {errors.email.message}
+        </p>
       )}
 
       {message && (
         <div
-          className={`mt-1 p-3 text-center rounded-md text-sm font-semibold transition-opacity duration-500 ${
+          className={`mt-1 px-2 py-1 text-center rounded-md text-sm transition-opacity duration-500 ${
             message.type === "success"
-              ? "bg-green-100 text-green-700"
-              : "bg-red-100 text-red-700"
+              ? "bg-emerald-100 text-emerald-700"
+              : "bg-red-100 text-rose-700"
           }`}
         >
           {message.text}

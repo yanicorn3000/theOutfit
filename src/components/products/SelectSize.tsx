@@ -10,13 +10,17 @@ type SizeProps = {
   selectedSize: string;
   setSelectedSize: (size: string) => void;
   variant?: "primary" | "secondary";
+  isError: boolean;
+  setIsError: (isError: boolean) => void;
 };
 
 const SelectSize: React.FC<SizeProps> = ({
   category,
   selectedSize,
   setSelectedSize,
+  isError,
   variant = "primary",
+  setIsError,
 }) => {
   const getSizes = (category: string) => {
     return category === "jewelery" ? jewelrySizes : clothingSizes;
@@ -24,16 +28,27 @@ const SelectSize: React.FC<SizeProps> = ({
 
   return (
     <>
-      <div className="relative w-full mt-2">
+      <div
+        className={clsx(
+          "relative w-full",
+
+          {
+            "max-w-3xl ": variant === "primary",
+            "max-w-xs justify-self-center ": variant === "secondary",
+          }
+        )}
+      >
         <select
           value={selectedSize || ""}
-          onChange={(e) => setSelectedSize(e.target.value)}
+          onChange={(e) => {
+            setSelectedSize(e.target.value);
+            setIsError(false);
+          }}
           className={clsx(
-            " transition duration-300 w-full appearance-none cursor-pointer bg-white  text-gray-700 focus:outline-none focus:ring-2  focus:ring-blue-400 focus:border-blue-400 border border-gray-300 rounded-md ",
-
+            "transition duration-300 w-full appearance-none cursor-pointer bg-white  text-gray-700 focus:outline-none focus:ring-2  focus:ring-blue-400 focus:border-blue-400 border rounded-md px-4 py-2",
             {
-              "p-3 text-base ": variant === "primary",
-              "p-2 text-sm ": variant === "secondary",
+              "border-gray-300": !isError,
+              "border-rose-500 animate-shake text-rose-500": isError,
             }
           )}
         >
@@ -57,7 +72,13 @@ const SelectSize: React.FC<SizeProps> = ({
             }
           )}
         >
-          <FontAwesomeIcon icon={faChevronDown} className=" text-gray-500" />
+          <FontAwesomeIcon
+            icon={faChevronDown}
+            className={clsx(" text-gray-500", {
+              "text-gray-500": !isError,
+              " animate-shake text-rose-500": isError,
+            })}
+          />
         </div>
       </div>
     </>

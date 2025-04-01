@@ -22,18 +22,24 @@ const Profile = () => {
   return (
     <div className="w-full mx-auto  bg-gray-50 flex flex-col items-center p-12 gap-6">
       <h2 className="text-2xl font-semibold mb-4">Hi, {user.username}</h2>
-      <div className="grid grid-cols-2 gap-6">
-        <div className="w-full bg-white rounded-lg shadow-md p-6">
+      <div className="grid grid-cols-2 gap-6 w-full max-w-2xl">
+        <div className="w-full bg-white rounded-lg shadow-md p-6 flex flex-col gap-4">
           <h3 className="font-semibold text-lg">User Data</h3>
-          <p>{`${firstname} ${lastname}`}</p>
-          <p>{user.email}</p>
-          <p>{user.phone}</p>
+          <div className="text-gray-700">
+            <p>{`${firstname} ${lastname}`}</p>
+            <p>{user.email}</p>
+            <p>{user.phone}</p>
+          </div>
         </div>
-        <div className="w-full bg-white rounded-lg shadow-md p-6">
+        <div className="w-full bg-white rounded-lg shadow-md p-6 flex flex-col gap-4">
           <h3 className="font-semibold text-lg">Delivery Address</h3>
-
-          <p>{`${street} ${number}`}</p>
-          <p>{`${zipcode} ${city}`}</p>
+          <div className="text-gray-700">
+            <p>{`${street} ${number}`}</p>
+            <p>{`${zipcode} ${city}`}</p>
+          </div>
+        </div>
+        <div className="w-full bg-white rounded-lg shadow-md p-6 flex flex-col gap-4 col-span-2">
+          <h3 className="font-semibold text-lg">Orders</h3>
         </div>
       </div>
       <button
