@@ -5,7 +5,7 @@ import MensCategory from "./categories/MensCategory";
 import JewelleryCategory from "./categories/JewelleryCategory";
 import SingleProduct from "../components/products/SingleProduct";
 import Cart from "./cart/Cart";
-import Checkout from "./cart/Checkout";
+import Checkout from "./order/Checkout";
 import Register from "./user/Register";
 import Login from "./user/Login";
 
