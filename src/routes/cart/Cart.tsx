@@ -2,8 +2,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { removeFromCart } from "../../redux/cartSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { getShippingCost } from "../../utils";
 
 //dodac przycis do wyczyszczenia koszyka
 
@@ -13,11 +14,8 @@ const Cart = () => {
     (state: RootState) => state.auth.isAuthenticated
   );
   const dispatch = useDispatch();
-  const subtotal = cart.reduce((acc, curr) => {
-    return acc + curr.price * curr.quantity;
-  }, 0);
-  const delivery = 5;
-  const total = subtotal + delivery;
+  const subtotal = useSelector((state: RootState) => state.cart.subtotal);
+  const countShipping = getShippingCost("Standard shipping", subtotal);
 
   const summary = [
     {
@@ -26,11 +24,11 @@ const Cart = () => {
     },
     {
       title: "Delivery",
-      value: delivery,
+      value: countShipping,
     },
     {
       title: "Total",
-      value: total,
+      value: subtotal + countShipping,
     },
   ];
 
@@ -102,6 +100,13 @@ const Cart = () => {
                 );
               })}
             </div>
+
+            {countShipping === 0 ? (
+              <div className="flex gap-1 text-center text-sm px-2 py-1 items-center text-emerald-500 rounded-md font-semibold place-self-start  bg-emerald-100 -mt-5">
+                <FontAwesomeIcon icon={faTruck} />
+                <p>You are eligible for a free Standard shipping!</p>
+              </div>
+            ) : null}
 
             <div className="flex gap-6">
               <Link

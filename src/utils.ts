@@ -19,3 +19,16 @@ export const getUser = () => {
     username: data.user,
   };
 };
+
+export const getShippingCost = (method: string, subtotal: number): number => {
+  switch (method) {
+    case "Standard shipping":
+      return subtotal > 300 ? 0 : 5;
+    case "Express shipping":
+      return 15;
+    case "Pickup":
+      return 0;
+    default:
+      return 0;
+  }
+};

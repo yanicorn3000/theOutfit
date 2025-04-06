@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
+import clsx from "clsx";
 
 const schema = z.object({
   email: z
@@ -84,18 +85,19 @@ const Newsletter: React.FC = () => {
       </form>
 
       {errors.email && (
-        <p className="text-rose-500 bg-red-100 text-center px-2 py-1 rounded-md text-sm ">
+        <p className="text-rose-500 bg-red-100 text-center font-semibold px-2 py-1 rounded-md text-sm">
           {errors.email.message}
         </p>
       )}
 
       {message && (
         <div
-          className={`mt-1 px-2 py-1 text-center rounded-md text-sm transition-opacity duration-500 ${
+          className={clsx(
+            "mt-1 px-2 py-1 text-center rounded-md text-sm font-semibold",
             message.type === "success"
-              ? "bg-emerald-100 text-emerald-700"
-              : "bg-red-100 text-rose-700"
-          }`}
+              ? "bg-emerald-100 text-emerald-500"
+              : "bg-red-100 text-rose-500"
+          )}
         >
           {message.text}
         </div>

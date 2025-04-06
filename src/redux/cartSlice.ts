@@ -2,9 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CartState, CartItem } from "../types";
 
 const savedCart = localStorage.getItem("cart");
+const calculateSubtotal = (items: CartItem[]) => {
+  return items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+};
+
+const initialItems = savedCart ? JSON.parse(savedCart) : [];
 
 const initialState: CartState = {
-  items: savedCart ? JSON.parse(savedCart) : [],
+  items: initialItems,
+  subtotal: calculateSubtotal(initialItems),
 };
 
 const cartSlice = createSlice({
@@ -21,6 +27,7 @@ const cartSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
+      state.subtotal = calculateSubtotal(state.items);
       localStorage.setItem("cart", JSON.stringify(state.items));
     },
     removeFromCart: (
@@ -41,10 +48,13 @@ const cartSlice = createSlice({
           );
         }
       }
+      state.subtotal = calculateSubtotal(state.items);
+
       localStorage.setItem("cart", JSON.stringify(state.items));
     },
     clearCart: (state) => {
       state.items = [];
+      state.subtotal = 0;
       localStorage.removeItem("cart");
     },
   },

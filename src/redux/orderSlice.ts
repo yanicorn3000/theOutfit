@@ -1,32 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-type BuyerInfo = {
-  name: {
-    firstname: string;
-    lastname: string;
-  };
-  address: {
-    city: string;
-    zipcode: string;
-    street: string;
-    number: number;
-  };
-  phone: string;
-  email: string;
-};
-
-type CheckoutState = {
-  buyerInfo: BuyerInfo | null;
-  paymentMethod: string | null;
-  deliveryMethod: string | null;
-  step: number;
-};
+import { BuyerInfo } from "../types";
+import { CheckoutState } from "../types";
 
 const initialState: CheckoutState = {
   buyerInfo: null,
   paymentMethod: null,
   deliveryMethod: null,
   step: 1,
+  shippingCost: 0,
 };
 
 const checkoutSlice = createSlice({
@@ -42,8 +23,9 @@ const checkoutSlice = createSlice({
     setDeliveryMethod(state, action: PayloadAction<string>) {
       state.deliveryMethod = action.payload;
     },
+
     nextStep(state) {
-      if (state.step < 3) {
+      if (state.step < 4) {
         state.step += 1;
       }
     },

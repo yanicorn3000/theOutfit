@@ -33,9 +33,19 @@ export const buyerSchema = z.object({
 });
 
 export const paymentSchema = z.object({
-  paymentMethod: z.string().min(1, "Payment method is required"),
+  paymentMethod: z
+    .string({
+      required_error: "Payment method is required",
+      invalid_type_error: "Payment method is required",
+    })
+    .min(1, "Payment method is required"),
 });
 
 export const deliverySchema = z.object({
-  deliveryMethod: z.string().min(1, "Delivery method is required"),
+  deliveryMethod: z
+    .string({
+      required_error: "Delivery method is required",
+      invalid_type_error: "Delivery method is required",
+    })
+    .min(1, "Delivery method is required"),
 });

@@ -1,19 +1,9 @@
-import { CheckoutFormData } from "./Checkout";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { buyerSchema } from "./schems";
 import { useEffect } from "react";
 import { FieldError } from "react-hook-form";
-
-type UserInfoFormData = Omit<
-  CheckoutFormData,
-  "paymentMethod" | "deliveryMethod"
->;
-
-type UserInfoFormProps = {
-  onSubmit: (data: UserInfoFormData) => void;
-  user?: UserInfoFormData;
-};
+import { UserInfoFormData, UserInfoFormProps } from "../../types";
 
 const formFields = [
   {
@@ -102,7 +92,10 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
   }, [user, reset]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-4 max-w-3xl"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {formFields.map((field, index) => {
         return (
           <div key={index}>
@@ -129,9 +122,9 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
 
       <button
         type="submit"
-        className="w-full p-3 bg-blue-500 text-white rounded-md"
+        className="w-full p-3 bg-gray-800 text-white rounded-md cursor-pointer"
       >
-        Next
+        Next Step
       </button>
     </form>
   );

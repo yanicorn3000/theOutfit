@@ -12,28 +12,9 @@ import {
 import UserInfoForm from "./UserInfoForm";
 import PaymentForm from "./PaymentForm";
 import DeliveryForm from "./DeliveryForm";
-import StepNavigation from "./SlepNavigation";
+import StepNavigation from "./StepNavigation";
+import OrderSummary from "./OrderSummary";
 import { useUserData } from "../../api";
-
-export type CheckoutFormData = {
-  name: {
-    firstname: string;
-    lastname: string;
-  };
-
-  phone: string;
-
-  address: {
-    city: string;
-    zipcode: string;
-    street: string;
-    number: number;
-  };
-
-  email: string;
-  paymentMethod: string;
-  deliveryMethod: string;
-};
 
 const Checkout = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -46,10 +27,10 @@ const Checkout = () => {
   );
 
   return (
-    <div className="w-full mx-auto bg-gray-50 flex flex-col items-center p-12 gap-6">
+    <div className="w-full bg-gray-50 flex flex-col items-center p-12 gap-10">
       <h2 className="text-3xl font-semibold">Checkout</h2>
-      <div className="w-full max-w-2xl">
-        <StepNavigation currentStep={step} />
+      <StepNavigation currentStep={step} />
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-6 flex flex-col gap-4">
         {step === 1 && (
           <UserInfoForm
             onSubmit={(data) => {
@@ -66,12 +47,25 @@ const Checkout = () => {
               dispatch(setPaymentMethod(data.paymentMethod));
               dispatch(nextStep());
             }}
+            onBack={() => dispatch(prevStep())}
           />
         )}
         {step === 3 && (
           <DeliveryForm
             onSubmit={(data) => {
               dispatch(setDeliveryMethod(data.deliveryMethod));
+              dispatch(nextStep());
+            }}
+            onBack={() => dispatch(prevStep())}
+          />
+        )}
+
+        {step === 4 && (
+          <OrderSummary
+            buyerInfo={buyerInfo}
+            paymentMethod={paymentMethod}
+            deliveryMethod={deliveryMethod}
+            onSubmit={() => {
               sendCart(cartItems, {
                 onSuccess: () => {
                   dispatch(clearCart());
@@ -79,19 +73,9 @@ const Checkout = () => {
                 },
               });
             }}
+            onBack={() => dispatch(prevStep())}
             isLoading={isPending}
           />
-        )}
-      </div>
-      <div className="mt-4">
-        {step > 1 && (
-          <button
-            type="button"
-            onClick={() => dispatch(prevStep())}
-            className="p-3 bg-gray-500 text-white rounded-md"
-          >
-            Back
-          </button>
         )}
       </div>
     </div>

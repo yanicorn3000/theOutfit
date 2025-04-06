@@ -38,6 +38,8 @@ export type AddToCartProps = {
   setIsError: (isError: boolean) => void;
 };
 
+//CART TYPES
+
 export type CartItem = {
   id: number;
   title: string;
@@ -49,4 +51,72 @@ export type CartItem = {
 
 export type CartState = {
   items: CartItem[];
+  subtotal: number;
+};
+
+//CHECKPOUT TYPES
+
+export type BuyerInfo = {
+  name: {
+    firstname: string;
+    lastname: string;
+  };
+  address: {
+    city: string;
+    zipcode: string;
+    street: string;
+    number: number;
+  };
+  phone: string;
+  email: string;
+};
+
+export type CheckoutFormData = BuyerInfo & {
+  paymentMethod: string;
+  deliveryMethod: string;
+};
+
+export type OrderSummaryProps = {
+  buyerInfo: BuyerInfo | null;
+  paymentMethod: string | null;
+  deliveryMethod: string | null;
+  onSubmit: () => void;
+  onBack: () => void;
+  isLoading: boolean;
+};
+
+export type CheckoutState = {
+  buyerInfo: BuyerInfo | null;
+  paymentMethod: string | null;
+  step: number;
+  deliveryMethod: string | null;
+  shippingCost: number;
+};
+
+export type DeliveryFormData = Pick<CheckoutFormData, "deliveryMethod">;
+
+export type DeliveryFormProps = {
+  onSubmit: (data: DeliveryFormData) => void;
+  onBack: () => void;
+};
+
+export type UserInfoFormData = Omit<
+  CheckoutFormData,
+  "paymentMethod" | "deliveryMethod"
+>;
+
+export type UserInfoFormProps = {
+  onSubmit: (data: UserInfoFormData) => void;
+  user?: UserInfoFormData;
+};
+
+export type StepNavigationProps = {
+  currentStep: number;
+};
+
+export type PaymentFormData = Pick<CheckoutFormData, "paymentMethod">;
+
+export type PaymentFormProps = {
+  onSubmit: (data: PaymentFormData) => void;
+  onBack: () => void;
 };
