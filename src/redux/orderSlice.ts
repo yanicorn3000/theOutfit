@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BuyerInfo } from "../types";
 import { CheckoutState } from "../types";
+import { Order } from "../types";
+
+const orders = localStorage.getItem("orders") || "[]";
+const parsedOrders = JSON.parse(orders) as Order[];
 
 const initialState: CheckoutState = {
   buyerInfo: null,
@@ -8,6 +12,7 @@ const initialState: CheckoutState = {
   deliveryMethod: null,
   step: 1,
   shippingCost: 0,
+  orders: parsedOrders,
 };
 
 const checkoutSlice = createSlice({
@@ -40,6 +45,10 @@ const checkoutSlice = createSlice({
       state.deliveryMethod = null;
       state.step = 1;
     },
+    addOrder(state, action: PayloadAction<Order>) {
+      state.orders.push(action.payload);
+      localStorage.setItem("orders", JSON.stringify(state.orders));
+    },
   },
 });
 
@@ -50,6 +59,7 @@ export const {
   nextStep,
   prevStep,
   resetCheckout,
+  addOrder,
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;

@@ -166,7 +166,6 @@ export const useSendCart = () => {
   return useMutation({
     mutationFn: sendCartToApi,
     onSuccess: (data) => {
-      alert("Cart sent successfully!");
       console.log("Cart response:", data);
     },
     onError: (error) => {

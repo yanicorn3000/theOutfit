@@ -83,6 +83,8 @@ export type OrderSummaryProps = {
   onSubmit: () => void;
   onBack: () => void;
   isLoading: boolean;
+  isModalOpen: boolean;
+  setIsModalOpen: (isModalOpen: boolean) => void;
 };
 
 export type CheckoutState = {
@@ -91,6 +93,17 @@ export type CheckoutState = {
   step: number;
   deliveryMethod: string | null;
   shippingCost: number;
+  orders: Order[];
+};
+
+export type Order = {
+  cartItems: CartItem[];
+  paymentMethod: string | null;
+  deliveryMethod: string | null;
+  date: string;
+  id: number;
+  total: number;
+  status: string;
 };
 
 export type DeliveryFormData = Pick<CheckoutFormData, "deliveryMethod">;

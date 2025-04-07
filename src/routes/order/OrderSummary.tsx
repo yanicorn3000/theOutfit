@@ -2,11 +2,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { getShippingCost } from "../../utils";
 import { OrderSummaryProps } from "../../types";
+import { useNavigate } from "react-router-dom";
+import clsx from "clsx";
 
 const OrderSummary = ({
   buyerInfo,
   paymentMethod,
   deliveryMethod,
+  isModalOpen,
+  setIsModalOpen,
   onSubmit,
   onBack,
   isLoading,
@@ -16,6 +20,12 @@ const OrderSummary = ({
     ? getShippingCost(deliveryMethod, subtotal)
     : 0;
   const total = subtotal + shippingCost;
+  const navigate = useNavigate();
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    navigate("/outfit/login");
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -91,19 +101,43 @@ const OrderSummary = ({
         <button
           type="button"
           onClick={onBack}
-          className="w-full p-3 bg-gray-400 text-white rounded-md cursor-pointer"
+          className="bg-gray-white p-3 w-full text-gray-700 border border-gary-700 cursor-pointer rounded-md hover:bg-gray-700 hover:text-white transition duration-300"
         >
           Previous Step
         </button>
         <button
           type="submit"
-          className="w-full p-3 bg-emerald-500 text-white rounded-md cursor-pointer"
+          className="w-full p-3 bg-emerald-500 text-white rounded-md cursor-pointer hover:bg-emerald-600 transition duration-300"
           onClick={onSubmit}
           disabled={isLoading}
         >
           {isLoading ? "Submitting..." : "Place Order"}
         </button>
       </div>
+
+      {isModalOpen && (
+        <div
+          className={clsx(
+            "fixed inset-0 flex items-center justify-center bg-gray-800 z-50 transition-opacity duration-300 ease-in-out",
+            "modalBackground"
+          )}
+        >
+          <div className="bg-white p-8 rounded-xl shadow-xl max-w-sm w-full">
+            <h3 className="text-xl font-semibold text-green-500">
+              Order Submitted!
+            </h3>
+            <p className="text-gray-600 mt-4">
+              Your order has been placed successfully.
+            </p>
+            <button
+              className="mt-6 w-full p-3 bg-emerald-500 text-white rounded-md cursor-pointer hover:bg-emerald-600 transition duration-300"
+              onClick={handleModalClose}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

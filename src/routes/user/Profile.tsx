@@ -1,10 +1,13 @@
 import { logout } from "../../redux/authSlice";
 import { useDispatch } from "react-redux";
 import { useUserData } from "../../api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { data: user, isLoading, error } = useUserData();
+  const orders = useSelector((state: RootState) => state.checkout.orders);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Something went wrong!</p>;
@@ -26,7 +29,9 @@ const Profile = () => {
         <div className="w-full bg-white rounded-lg shadow-md p-6 flex flex-col gap-4">
           <h3 className="font-semibold text-lg">User Data</h3>
           <div className="text-gray-700">
-            <p>{`${firstname} ${lastname}`}</p>
+            <p>
+              {firstname} {lastname}
+            </p>
             <p>{user.email}</p>
             <p>{user.phone}</p>
           </div>
@@ -34,12 +39,39 @@ const Profile = () => {
         <div className="w-full bg-white rounded-lg shadow-md p-6 flex flex-col gap-4">
           <h3 className="font-semibold text-lg">Delivery Address</h3>
           <div className="text-gray-700">
-            <p>{`${street} ${number}`}</p>
-            <p>{`${zipcode} ${city}`}</p>
+            <p>
+              {street} {number}
+            </p>
+            <p>
+              {zipcode} {city}
+            </p>
           </div>
         </div>
         <div className="w-full bg-white rounded-lg shadow-md p-6 flex flex-col gap-4 col-span-2">
           <h3 className="font-semibold text-lg">Orders</h3>
+
+          {orders.length === 0 ? (
+            <p>No orders found.</p>
+          ) : (
+            <ul>
+              {orders.map((order, index) => (
+                <li key={index} className="border-b py-4">
+                  <h3 className="font-semibold">Order #{order.id}</h3>
+                  <p>Date: {order.date}</p>
+                  <p>Subtotal: ${order.total}</p>
+                  <h4 className="mt-2 font-medium">Items:</h4>
+                  <ul className=" pl-5">
+                    {order.cartItems.map((item, itemIndex) => (
+                      <li key={itemIndex}>
+                        {item.quantity} x {item.title} {item.size} ($
+                        {item.price})
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <button

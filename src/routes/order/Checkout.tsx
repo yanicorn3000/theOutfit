@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
-import { useSendCart } from "../../api";
+import { useSendCart, useUserData } from "../../api";
 import { clearCart } from "../../redux/cartSlice";
 import {
   setBuyerInfo,
@@ -8,23 +8,27 @@ import {
   setDeliveryMethod,
   nextStep,
   prevStep,
+  addOrder,
 } from "../../redux/orderSlice";
 import UserInfoForm from "./UserInfoForm";
 import PaymentForm from "./PaymentForm";
 import DeliveryForm from "./DeliveryForm";
 import StepNavigation from "./StepNavigation";
 import OrderSummary from "./OrderSummary";
-import { useUserData } from "../../api";
+import { generateOrderId } from "../../utils";
+import { useState } from "react";
 
 const Checkout = () => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  const subtotal = useSelector((state: RootState) => state.cart.subtotal);
   const { data: user } = useUserData();
   const dispatch = useDispatch();
   const { mutate: sendCart, isPending } = useSendCart();
-
   const { step, buyerInfo, paymentMethod, deliveryMethod } = useSelector(
-    (state: RootState) => state.order
+    (state: RootState) => state.checkout
   );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="w-full bg-gray-50 flex flex-col items-center p-12 gap-10">
@@ -65,11 +69,23 @@ const Checkout = () => {
             buyerInfo={buyerInfo}
             paymentMethod={paymentMethod}
             deliveryMethod={deliveryMethod}
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
             onSubmit={() => {
+              const newOrder = {
+                cartItems,
+                paymentMethod,
+                deliveryMethod,
+                date: new Date().toLocaleDateString(),
+                id: generateOrderId(),
+                status: "pending",
+                total: subtotal,
+              };
               sendCart(cartItems, {
                 onSuccess: () => {
                   dispatch(clearCart());
-                  console.log(buyerInfo, paymentMethod, deliveryMethod);
+                  dispatch(addOrder(newOrder));
+                  setIsModalOpen(true);
                 },
               });
             }}
