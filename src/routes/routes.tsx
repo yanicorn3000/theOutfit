@@ -8,6 +8,7 @@ import Cart from "./cart/Cart";
 import Checkout from "./order/Checkout";
 import Register from "./user/Register";
 import Login from "./user/Login";
+import Search from "./search/Search";
 
 const RoutesComponent = () => {
   return (
@@ -21,6 +22,7 @@ const RoutesComponent = () => {
       <Route path="/outfit/checkout" Component={Checkout} />
       <Route path="/outfit/register" Component={Register} />
       <Route path="/outfit/login" Component={Login} />
+      <Route path="/outfit/search" Component={Search} />
     </Routes>
   );
 };

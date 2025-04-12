@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { getShippingCost } from "../../utils";
-
-//dodac przycis do wyczyszczenia koszyka
+import { incrementItem } from "../../redux/cartSlice";
 
 const Cart = () => {
   const cart = useSelector((state: RootState) => state.cart.items);
@@ -40,7 +39,7 @@ const Cart = () => {
           <p className="text-gray-500">There’s nothing in your cart yet...</p>
           <Link
             to="/outfit"
-            className="bg-gray-700 text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2"
+            className="bg-gray-700  text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2"
           >
             Back to shopping
           </Link>
@@ -66,9 +65,33 @@ const Cart = () => {
                     <p className="text-gray-800 text-md">
                       Size: <span className="font-semibold">{item.size}</span>
                     </p>
-                    <p className="text-md text-gray-600">
-                      ${item.price} x {item.quantity}
-                    </p>
+                    <div className="flex items-center gap-3 text-gray-600">
+                      <p className="text-md ">${item.price}</p>
+                      <p>x</p>
+                      <div className="flex items-center gap-1">
+                        <button
+                          className="px-2 py-0.5 text-gray-500 text-md cursor-pointer bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-400 hover:text-white"
+                          onClick={() =>
+                            dispatch(
+                              removeFromCart({ id: item.id, size: item.size })
+                            )
+                          }
+                        >
+                          -
+                        </button>
+                        {item.quantity}
+                        <button
+                          className="px-2 py-0.5 text-gray-500 text-md cursor-pointer bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-400 hover:text-white"
+                          onClick={() =>
+                            dispatch(
+                              incrementItem({ id: item.id, size: item.size })
+                            )
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
                   </div>
                   <button
                     onClick={() =>

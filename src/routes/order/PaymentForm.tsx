@@ -4,7 +4,7 @@ import { paymentSchema } from "./schems";
 import { PaymentFormData, PaymentFormProps } from "../../types";
 import clsx from "clsx";
 
-const paymentMethods = ["Credit Card", "PayPal", "Cash on Delivery", "Blik"];
+const paymentMethods = ["Credit Card", "PayPal", "Google Pay", "Apple Pay"];
 
 const PaymentForm = ({ onSubmit, onBack }: PaymentFormProps) => {
   const {
@@ -66,7 +66,7 @@ const PaymentForm = ({ onSubmit, onBack }: PaymentFormProps) => {
         </button>
         <button
           type="submit"
-          className="w-full p-3 bg-gray-800 text-white rounded-md cursor-pointer"
+          className="w-full p-3 bg-gray-700 text-white rounded-md cursor-pointer  hover:bg-gray-600 transition duration-300"
         >
           Next Step
         </button>

@@ -82,7 +82,6 @@ export type OrderSummaryProps = {
   deliveryMethod: string | null;
   onSubmit: () => void;
   onBack: () => void;
-  isLoading: boolean;
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
 };

@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { StepNavigationProps } from "../../types";
 
 const steps = [
-  { num: 1, label: "User Info" },
+  { num: 1, label: "User Data" },
   { num: 2, label: "Payment" },
   { num: 3, label: "Delivery" },
   { num: 4, label: "Summary" },

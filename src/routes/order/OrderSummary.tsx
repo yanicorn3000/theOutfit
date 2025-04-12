@@ -62,36 +62,38 @@ const OrderSummary = ({
           </div>
         </div>
 
-        <div>
-          <h3 className="text-lg font-semibold">Contact Data</h3>
-          <p>
-            {buyerInfo?.name.lastname} {buyerInfo?.name.firstname}
-          </p>
-          <p>{buyerInfo?.email}</p>
-          <p>{buyerInfo?.phone}</p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-gray-700">
+          <div>
+            <h3 className="text-lg font-semibold">Contact Data</h3>
+            <p>
+              {buyerInfo?.name.lastname} {buyerInfo?.name.firstname}
+            </p>
+            <p>{buyerInfo?.email}</p>
+            <p>{buyerInfo?.phone}</p>
+          </div>
 
-        <div>
-          <h3 className="text-lg font-semibold">Address</h3>
-          <p>
-            {buyerInfo?.address.street} {buyerInfo?.address.number}
-          </p>
-          <p>
-            {buyerInfo?.address.zipcode} {buyerInfo?.address.city}
-          </p>
-        </div>
+          <div>
+            <h3 className="text-lg font-semibold">Address</h3>
+            <p>
+              {buyerInfo?.address.street} {buyerInfo?.address.number}
+            </p>
+            <p>
+              {buyerInfo?.address.zipcode} {buyerInfo?.address.city}
+            </p>
+          </div>
 
-        <div>
-          <h3 className="text-lg font-semibold">Delivery Method</h3>
-          <p>{deliveryMethod}</p>
-          <span>${shippingCost.toFixed(2)}</span>
-        </div>
+          <div>
+            <h3 className="text-lg font-semibold">Delivery Method</h3>
+            <p>{deliveryMethod}</p>
+            <span>${shippingCost.toFixed(2)}</span>
+          </div>
 
-        <div>
-          <h3 className="text-lg font-semibold">Payment Method</h3>
-          <p>{paymentMethod}</p>
+          <div>
+            <h3 className="text-lg font-semibold">Payment Method</h3>
+            <p>{paymentMethod}</p>
+          </div>
         </div>
-        <div className="flex justify-between items-center border-t border-t-gray-300 pt-4">
+        <div className="flex text-lg font-bold text-gray-700 justify-between items-center border-t border-t-gray-300 pt-4">
           <span>Total</span>
           <span>${total.toFixed(2)}</span>
         </div>

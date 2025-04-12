@@ -96,10 +96,14 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
       className="flex flex-col gap-4 max-w-3xl"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <h2 className="text-2xl font-bold mb-4 text-center">User Data</h2>
       {formFields.map((field, index) => {
         return (
           <div key={index}>
-            <label htmlFor={field.name} className="text-gray-700">
+            <label
+              htmlFor={field.name}
+              className="text-sm font-medium text-gray-700"
+            >
               {field.label}
             </label>
             <input
@@ -109,10 +113,10 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
               id={field.name}
               type={field.type}
               placeholder={field.placeholder}
-              className="w-full p-2 border border-gray-300 rounded-md"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-md"
             />
             {dotGetter(errors, field.name) && (
-              <p className="text-red-500 text-sm">
+              <p className="text-rose-500 text-sm mt-1">
                 {dotGetter(errors, field.name)?.message}
               </p>
             )}
@@ -122,7 +126,7 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
 
       <button
         type="submit"
-        className="w-full p-3 bg-gray-800 text-white rounded-md cursor-pointer"
+        className="w-full p-3 bg-gray-700 text-white rounded-md cursor-pointer  hover:bg-gray-600 transition duration-300"
       >
         Next Step
       </button>

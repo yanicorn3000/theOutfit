@@ -73,7 +73,7 @@ const DeliveryForm = ({ onSubmit, onBack }: DeliveryFormProps) => {
         </button>
         <button
           type="submit"
-          className="w-full p-3 bg-gray-700 text-white rounded-md cursor-pointer"
+          className="w-full p-3 bg-gray-700 text-white rounded-md cursor-pointer  hover:bg-gray-600 transition duration-300"
         >
           Next Step
         </button>

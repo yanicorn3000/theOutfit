@@ -32,10 +32,3 @@ export const getShippingCost = (method: string, subtotal: number): number => {
       return 0;
   }
 };
-
-let lastOrderId = 0;
-
-export const generateOrderId = (): number => {
-  lastOrderId += 1;
-  return lastOrderId;
-};

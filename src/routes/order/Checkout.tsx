@@ -15,7 +15,6 @@ import PaymentForm from "./PaymentForm";
 import DeliveryForm from "./DeliveryForm";
 import StepNavigation from "./StepNavigation";
 import OrderSummary from "./OrderSummary";
-import { generateOrderId } from "../../utils";
 import { useState } from "react";
 
 const Checkout = () => {
@@ -23,7 +22,7 @@ const Checkout = () => {
   const subtotal = useSelector((state: RootState) => state.cart.subtotal);
   const { data: user } = useUserData();
   const dispatch = useDispatch();
-  const { mutate: sendCart, isPending } = useSendCart();
+  const { mutate: sendCart } = useSendCart();
   const { step, buyerInfo, paymentMethod, deliveryMethod } = useSelector(
     (state: RootState) => state.checkout
   );
@@ -77,7 +76,6 @@ const Checkout = () => {
                 paymentMethod,
                 deliveryMethod,
                 date: new Date().toLocaleDateString(),
-                id: generateOrderId(),
                 status: "pending",
                 total: subtotal,
               };
@@ -90,7 +88,6 @@ const Checkout = () => {
               });
             }}
             onBack={() => dispatch(prevStep())}
-            isLoading={isPending}
           />
         )}
       </div>

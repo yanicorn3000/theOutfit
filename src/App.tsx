@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getUser } from "./utils";
 import { setUser } from "./redux/authSlice";
+import GlobalSpinner from "./components/spinner/GlobalSpinner";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => {
       <BrowserRouter>
         <Layout>
           <RoutesComponent />
+          <GlobalSpinner />
         </Layout>
       </BrowserRouter>
     </QueryClientProvider>

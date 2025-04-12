@@ -45,8 +45,13 @@ const checkoutSlice = createSlice({
       state.deliveryMethod = null;
       state.step = 1;
     },
-    addOrder(state, action: PayloadAction<Order>) {
-      state.orders.push(action.payload);
+    addOrder(state, action: PayloadAction<Omit<Order, "id">>) {
+      const order = {
+        ...action.payload,
+        id: state.orders.length + 1,
+      };
+
+      state.orders.push(order);
       localStorage.setItem("orders", JSON.stringify(state.orders));
     },
   },

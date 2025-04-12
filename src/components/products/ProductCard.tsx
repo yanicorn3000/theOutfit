@@ -2,8 +2,6 @@ import SelectSize from "./SelectSize";
 import AddToCartButton from "./AddToCartButton";
 import { Link } from "react-router-dom";
 import Stars from "./Stars";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Product } from "../../types";
 import { useState } from "react";
 
@@ -26,15 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           alt={product.title}
           className="h-60 w-52 object-contain p-4 "
         />
-        <button
-          className="absolute right-10 top-10 focus:outline-none"
-          aria-label="Add to favorites"
-        >
-          <FontAwesomeIcon
-            icon={faHeart}
-            className="text-gray-300 text-2xl hover:text-red-300 cursor-pointer"
-          />
-        </button>
+
         <div className="flex flex-col items-center gap-5 flex-grow">
           <span className="px-2 py-1 bg-gray-200 text-gray-800 rounded-lg text-sm">
             {product.category}

@@ -52,6 +52,23 @@ const cartSlice = createSlice({
 
       localStorage.setItem("cart", JSON.stringify(state.items));
     },
+
+    incrementItem: (
+      state,
+      action: PayloadAction<{ id: number; size: string }>
+    ) => {
+      const { id, size } = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.id === id && item.size === size
+      );
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      }
+      state.subtotal = calculateSubtotal(state.items);
+      localStorage.setItem("cart", JSON.stringify(state.items));
+    },
+
     clearCart: (state) => {
       state.items = [];
       state.subtotal = 0;
@@ -60,5 +77,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, incrementItem } =
+  cartSlice.actions;
 export default cartSlice.reducer;

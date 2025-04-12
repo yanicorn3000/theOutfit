@@ -5,12 +5,13 @@ import {
   faXmark,
   faBars,
   faCircleUser,
-  faHeart,
   faShoppingCart,
   faUser,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 const navItems: { id: string; title: string; link: string }[] = [
@@ -21,6 +22,8 @@ const navItems: { id: string; title: string; link: string }[] = [
 
 const Header: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const cart = useSelector((state: RootState) => state.cart.items);
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
@@ -28,6 +31,13 @@ const Header: React.FC = () => {
     (state: RootState) => state.auth.isAuthenticated
   );
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`outfit/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
+  };
   return (
     <nav className="bg-white md:shadow-md p-6 sticky">
       <div className="container mx-auto flex flex-col items-center">
@@ -82,15 +92,27 @@ const Header: React.FC = () => {
                 )}
               </Link>
 
-              <Link to="/outfit/favories">
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="text-gray-400 text-2xl hover:text-gray-500"
+              <form onSubmit={handleSearch} className="hidden md:flex mr-5">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  placeholder="Search..."
+                  className="border-1 border-gray-300 text-gray-500 rounded-l-md px-3 py-1 focus:outline-none border-r-0 focus:ring-gray-400"
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
-              </Link>
+                <button
+                  type="submit"
+                  className="bg-gray-400 text-gray-500 border-1 border-gray-400 rounded-r-md px-3 py-1 cursor-pointer hover:bg-gray-500 hover:border-gray-500 transition duration-300 ease-in-out"
+                >
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    className="text-white text-lg"
+                  />
+                </button>
+              </form>
             </div>
             <button
-              className="md:hidden p-2"
+              className="md:hidden p-2 flex justify-center items-center"
               onClick={() => setIsOpen(!isOpen)}
             >
               <FontAwesomeIcon

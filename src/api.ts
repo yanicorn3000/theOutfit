@@ -17,7 +17,7 @@ export const fetchProducts = async () => {
   const promises = categories.map(async (category) => {
     const response = await fetch(`${API}/products/category/${category}`);
     if (!response.ok) {
-      throw new Error("Błąd podczas ładowania danych");
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
     return response.json();
   });
@@ -35,13 +35,13 @@ const fetchProductsByCategory = async (
     const response = await fetch(`${API}/products/category/${category}`);
 
     if (!response.ok) {
-      throw new Error(`Błąd podczas ładowania danych: ${response.statusText}`);
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
     const data: Product[] = await response.json();
     return data;
   } catch (error) {
-    console.error("Błąd pobierania produktów:", error);
+    console.error("Fetching error:", error);
     throw error;
   }
 };
@@ -219,6 +219,14 @@ export const useProductsByCategory = (category: string) => {
     queryKey: ["category", category],
     queryFn: () => fetchProductsByCategory(category),
     enabled: !!category,
+    staleTime: 1000 * 60 * 5,
+  });
+};
+
+export const useProducts = () => {
+  return useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
     staleTime: 1000 * 60 * 5,
   });
 };
