@@ -3,12 +3,13 @@ import { useSelector } from "react-redux";
 import cartReducer from "./cartSlice";
 import authReducer from "./authSlice";
 import orderReducer from "./orderSlice";
-
+import themeReducer from "./themeSlice";
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
     auth: authReducer,
     checkout: orderReducer,
+    theme: themeReducer,
   },
 });
 

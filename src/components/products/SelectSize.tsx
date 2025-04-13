@@ -1,18 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
+import { SizeProps } from "../../types";
 
 const clothingSizes = ["S", "M", "L", "XL"];
 const jewelrySizes = ["One Size"];
-
-type SizeProps = {
-  category: string;
-  selectedSize: string;
-  setSelectedSize: (size: string) => void;
-  variant?: "primary" | "secondary";
-  isError: boolean;
-  setIsError: (isError: boolean) => void;
-};
 
 const SelectSize: React.FC<SizeProps> = ({
   category,
@@ -45,10 +37,11 @@ const SelectSize: React.FC<SizeProps> = ({
             setIsError(false);
           }}
           className={clsx(
-            "transition duration-300 w-full appearance-none cursor-pointer bg-white  text-gray-700 focus:outline-none focus:ring-2  focus:ring-blue-400 focus:border-blue-400 border rounded-md px-4 py-2",
+            "transition duration-300 w-full appearance-none cursor-pointer bg-white dark:bg-gray-700 focus:outline-none border rounded-md px-4 py-3",
             {
-              "border-gray-300": !isError,
-              "border-rose-500 animate-shake text-rose-500": isError,
+              "text-gray-700 dark:text-white border-gray-300": !isError,
+              "border-rose-500 animate-shake text-rose-500 dark:text-rose-500":
+                isError,
             }
           )}
         >
@@ -57,7 +50,7 @@ const SelectSize: React.FC<SizeProps> = ({
           </option>
           {getSizes(category).map((size) => {
             return (
-              <option key={size} value={size} className="text-gray-600">
+              <option key={size} value={size}>
                 {size}
               </option>
             );
@@ -65,7 +58,7 @@ const SelectSize: React.FC<SizeProps> = ({
         </select>
         <div
           className={clsx(
-            "absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none  text-gray-500",
+            "absolute top-1/2 right-3 transform -translate-y-1/2 pointer-events-none",
             {
               "text-base ": variant === "primary",
               "text-sm": variant === "secondary",
@@ -74,9 +67,9 @@ const SelectSize: React.FC<SizeProps> = ({
         >
           <FontAwesomeIcon
             icon={faChevronDown}
-            className={clsx(" text-gray-500", {
-              "text-gray-500": !isError,
-              " animate-shake text-rose-500": isError,
+            className={clsx({
+              "text-gray-500 dark:text-white": !isError,
+              " animate-shake text-rose-500 dark:text-rose-500": isError,
             })}
           />
         </div>

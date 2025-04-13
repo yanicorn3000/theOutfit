@@ -7,6 +7,28 @@ export type LoginResponse = {
   token: string;
 };
 
+export type AddToCartProps = {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  selectedSize: string;
+  variant?: "primary" | "secondary";
+  isError?: boolean;
+  setIsError: (isError: boolean) => void;
+};
+
+//PRODUCT TYPES
+
+export type SizeProps = {
+  category: string;
+  selectedSize: string;
+  setSelectedSize: (size: string) => void;
+  variant?: "primary" | "secondary";
+  isError: boolean;
+  setIsError: (isError: boolean) => void;
+};
+
 export type Rating = {
   rate: number;
   count: number;
@@ -25,17 +47,6 @@ export type Product = {
 export type ListProps = {
   data: Product[];
   title: string;
-};
-
-export type AddToCartProps = {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  selectedSize: string;
-  variant?: "primary" | "secondary";
-  isError?: boolean;
-  setIsError: (isError: boolean) => void;
 };
 
 //CART TYPES
@@ -84,6 +95,7 @@ export type OrderSummaryProps = {
   onBack: () => void;
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
+  isLoading?: boolean;
 };
 
 export type CheckoutState = {
@@ -131,4 +143,8 @@ export type PaymentFormData = Pick<CheckoutFormData, "paymentMethod">;
 export type PaymentFormProps = {
   onSubmit: (data: PaymentFormData) => void;
   onBack: () => void;
+};
+
+export type ThemeState = {
+  theme: "light" | "dark";
 };

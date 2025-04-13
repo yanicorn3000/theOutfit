@@ -33,8 +33,6 @@ const AddToCartButton: React.FC<AddToCartProps> = ({
       quantity: 1,
     };
 
-    console.log(productToAdd);
-
     dispatch(addToCart(productToAdd));
     navigate("/outfit/cart");
   };
@@ -42,10 +40,12 @@ const AddToCartButton: React.FC<AddToCartProps> = ({
     <button
       onClick={handleAddToCart}
       className={clsx(
-        "flex items-center justify-center gap-2 bg-gray-700 text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2 transition duration-300 w-full",
+        "flex items-center justify-center gap-2 text-white cursor-pointer rounded px-4 py-2  w-full",
         {
-          "max-w-3xl text-lg mt-4": variant === "primary",
-          "justify-self-center max-w-xs text-md mt-3": variant === "secondary",
+          "max-w-3xl text-lg mt-4 bg-gray-700 hover:bg-gray-500  dark:hover:bg-gray-800 transition duration-300":
+            variant === "primary",
+          "justify-self-center max-w-xs text-md mt-3 bg-gray-700 dark:hover:bg-gray-600":
+            variant === "secondary",
         }
       )}
     >

@@ -1,15 +1,7 @@
 import { useProducts } from "../../api";
 import List from "../../components/products/List";
 import { Link } from "react-router-dom";
-
-type Product = {
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-};
+import { Product } from "../../types";
 
 const Search = () => {
   const query = new URLSearchParams(window.location.search).get("q") || "";

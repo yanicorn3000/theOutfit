@@ -59,11 +59,11 @@ const Newsletter: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center py-10 gap-4 bg-gray-50 ">
-      <h2 className="text-3xl font-semibold mt-4">
+    <div className="w-full flex flex-col items-center justify-center py-10 gap-4 bg-gray-50 dark:bg-gray-500 ">
+      <h2 className="text-3xl font-semibold mt-4 text-gray-800 dark:text-white">
         Subscribe to our newsletter
       </h2>
-      <p className="text-gray-500">
+      <p className="text-gray-500 dark:text-white text-center">
         Sign up for promotions, tailored new arrivals, stock updates and more –
         straight to your inbox
       </p>
@@ -71,13 +71,13 @@ const Newsletter: React.FC = () => {
         <input
           type="email"
           {...register("email")}
-          className="p-2 border border-gray-300 rounded-l-md w-64 focus:outline-none focus:ring-1 focus:ring-gray-200 bg-white"
+          className="p-2 border border-gray-300 rounded-l-md w-64 focus:outline-none  bg-white"
           placeholder="Your email"
         />
 
         <button
           type="submit"
-          className="p-2 bg-gray-700 text-white rounded-r-md hover:bg-gray-500  cursor-pointer"
+          className="p-2 bg-gray-700 text-white rounded-r-md hover:bg-gray-500 dark:hover:bg-gray-800 border-2 dark:hover:border-gray-800 border-gray-700 cursor-pointer"
           disabled={isLoading}
         >
           {isLoading ? "Subscribing..." : "Subscribe"}
