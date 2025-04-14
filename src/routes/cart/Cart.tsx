@@ -32,14 +32,18 @@ const Cart = () => {
   ];
 
   return (
-    <div className="flex flex-col justify-center items-center gap-6 p-15">
-      <h2 className="font-semibold text-3xl text-gray-700">Your Cart</h2>
+    <div className="flex flex-col justify-center items-center gap-6 p-15 bg-white dark:bg-gray-600 w-full h-full">
+      <h2 className="font-semibold text-3xl text-gray-700 dark:text-white">
+        Your Cart
+      </h2>
       {cart.length === 0 ? (
         <div className="flex flex-col justify-center items-center gap-3">
-          <p className="text-gray-500">There’s nothing in your cart yet...</p>
+          <p className="text-gray-500 dark:text-gray-100">
+            There’s nothing in your cart yet...
+          </p>
           <Link
             to="/outfit"
-            className="bg-gray-700  text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2"
+            className="bg-gray-700  text-white cursor-pointer rounded hover:bg-gray-500 dark:hover:bg-gray-800 px-4 py-2"
           >
             Back to shopping
           </Link>
@@ -51,26 +55,29 @@ const Cart = () => {
               return (
                 <li
                   key={index}
-                  className="flex justify-between items-start w-full  gap-4 py-4 border-b border-b-gray-300 last-of-type:border-none"
+                  className="flex justify-between items-start w-full  gap-4 py-4 border-b border-b-gray-300 dark:border-b-gray-500 last-of-type:border-none"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-20 h-20 object-contain"
-                  />
+                  <div className="flex items-center justify-center w-30 h-30 bg-white rounded-md ">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-30 h-30 object-contain p-2"
+                    />
+                  </div>
+
                   <div className="flex-1">
-                    <h5 className="text-gray-800 font-semibold">
+                    <h5 className="text-gray-800 font-semibold dark:text-gray-100">
                       {item.title}
                     </h5>
-                    <p className="text-gray-800 text-md">
+                    <p className="text-gray-800 text-md dark:text-gray-100">
                       Size: <span className="font-semibold">{item.size}</span>
                     </p>
-                    <div className="flex items-center gap-3 text-gray-600">
+                    <div className="flex items-center gap-3 text-gray-600 dark:text-white">
                       <p className="text-md ">${item.price}</p>
                       <p>x</p>
                       <div className="flex items-center gap-1">
                         <button
-                          className="px-2 py-0.5 text-gray-500 text-md cursor-pointer bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-400 hover:text-white"
+                          className="px-2 py-0.5 text-gray-500 dark:text-white text-md cursor-pointer bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-500 rounded-md hover:bg-gray-400 dark:hover:bg-gray-800 hover:text-white"
                           onClick={() =>
                             dispatch(
                               removeFromCart({ id: item.id, size: item.size })
@@ -81,7 +88,7 @@ const Cart = () => {
                         </button>
                         {item.quantity}
                         <button
-                          className="px-2 py-0.5 text-gray-500 text-md cursor-pointer bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-400 hover:text-white"
+                          className="px-2 py-0.5 text-gray-500 dark:text-white text-md cursor-pointer bg-gray-100 dark:bg-gray-700 border dark:hover:bg-gray-800 border-gray-200 dark:border-gray-500 rounded-md hover:bg-gray-400 hover:text-white"
                           onClick={() =>
                             dispatch(
                               incrementItem({ id: item.id, size: item.size })
@@ -100,22 +107,24 @@ const Cart = () => {
                   >
                     <FontAwesomeIcon
                       icon={faXmark}
-                      className="text-gray-500 text-md cursor-pointer bg-gray-100 py-1 px-2 border border-gray-200 rounded-md hover:bg-gray-400 hover:text-white"
+                      className="text-gray-500 text-md cursor-pointer dark:text-white bg-gray-100 py-1 px-2 border border-gray-200 rounded-md hover:bg-gray-400 hover:text-white dark:border-gray-500 dark:hover:bg-gray-800 dark:bg-gray-700"
                     />
                   </button>
                 </li>
               );
             })}
           </ul>
-          <div className="flex flex-col gap-7 bg-gray-50 p-12 w-full place-self-start rounded-lg">
-            <h3 className="text-xl font-semibold"> Summary</h3>
+          <div className="flex flex-col gap-7 bg-gray-50 dark:bg-gray-800 p-12 w-full place-self-start rounded-lg shadow-md">
+            <h3 className="text-xl text-gray-800 dark:text-gray-200 font-semibold">
+              Summary
+            </h3>
             <div>
               {summary.map((el) => {
                 const value = el.value;
                 return (
                   <div
                     key={el.title}
-                    className="flex justify-between text-gray-800 last-of-type:font-semibold last-of-type:border-t last-of-type:mt-7 last-of-type:py-4 last-of-type:border-t-gray-400"
+                    className="flex justify-between text-gray-800 dark:text-white last-of-type:font-semibold last-of-type:border-t last-of-type:mt-7 last-of-type:py-4 last-of-type:border-t-gray-400"
                   >
                     <p>{el.title}:</p>
                     <span>${value.toFixed(2)}</span>
@@ -134,7 +143,7 @@ const Cart = () => {
             <div className="flex gap-6">
               <Link
                 to="/outfit"
-                className="bg-gray-50 text-gray-700 border border-gary-700 cursor-pointer rounded hover:bg-gray-700 hover:text-white px-4 py-2 transition duration-300"
+                className="bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-white border border-gary-800 cursor-pointer rounded hover:bg-gray-700 hover:text-white px-4 py-2 transition duration-300"
               >
                 Back to shopping
               </Link>
@@ -144,7 +153,7 @@ const Cart = () => {
                     ? "/outfit/checkout"
                     : "/outfit/login?redirect=/outfit/checkout"
                 }
-                className="bg-gray-700 text-white cursor-pointer rounded hover:bg-gray-500 px-4 py-2 border-none transition duration-300 "
+                className="bg-gray-700 font-semibold dark:bg-gray-200 dark:text-gray-800 text-white cursor-pointer rounded hover:bg-gray-600 dark:hover:bg-gray-300 px-4 py-2 border border-gray-800 dark:border-gray-300  transition duration-300 "
               >
                 Go to Checkout
               </Link>

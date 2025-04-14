@@ -4,6 +4,7 @@ import { buyerSchema } from "./schems";
 import { useEffect } from "react";
 import { FieldError } from "react-hook-form";
 import { UserInfoFormData, UserInfoFormProps } from "../../types";
+import Button from "../../components/buttons/Button";
 
 const formFields = [
   {
@@ -96,13 +97,15 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
       className="flex flex-col gap-4 max-w-3xl"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h2 className="text-2xl font-bold mb-4 text-center">User Data</h2>
+      <h2 className="text-2xl dark:text-white text-gray-800 font-bold mb-4 text-center">
+        User Data
+      </h2>
       {formFields.map((field, index) => {
         return (
           <div key={index}>
             <label
               htmlFor={field.name}
-              className="text-sm font-medium text-gray-700"
+              className="text-sm font-medium text-gray-700 dark:text-gray-200"
             >
               {field.label}
             </label>
@@ -113,7 +116,7 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
               id={field.name}
               type={field.type}
               placeholder={field.placeholder}
-              className="w-full mt-2 p-2 border border-gray-300 rounded-md"
+              className="w-full mt-2 p-2 border bg-gray-50 dark:bg-gray-700 border-gray-300 rounded-md text-gray-800 dark:text-white"
             />
             {dotGetter(errors, field.name) && (
               <p className="text-rose-500 text-sm mt-1">
@@ -124,12 +127,9 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
         );
       })}
 
-      <button
-        type="submit"
-        className="w-full p-3 bg-gray-700 text-white rounded-md cursor-pointer  hover:bg-gray-600 transition duration-300"
-      >
+      <Button type="submit" variant="primary" fullWidth className="mt-4">
         Next Step
-      </button>
+      </Button>
     </form>
   );
 };

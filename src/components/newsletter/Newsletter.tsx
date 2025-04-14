@@ -71,13 +71,13 @@ const Newsletter: React.FC = () => {
         <input
           type="email"
           {...register("email")}
-          className="p-2 border border-gray-300 rounded-l-md w-64 focus:outline-none  bg-white"
+          className="p-2 border-1 border-gray-400 border-r-transparent rounded-l-md w-64 focus:outline-none  bg-white dark:bg-gray-700 dark:text-white"
           placeholder="Your email"
         />
 
         <button
           type="submit"
-          className="p-2 bg-gray-700 text-white rounded-r-md hover:bg-gray-500 dark:hover:bg-gray-800 border-2 dark:hover:border-gray-800 border-gray-700 cursor-pointer"
+          className="py-2 px-3 border-1 border-gray-700 bg-gray-700 text-white rounded-r-md hover:bg-gray-500 dark:hover:bg-gray-800 hover:border-gray-500 dark:hover:border-gray-400 dark:border-gray-400 cursor-pointer"
           disabled={isLoading}
         >
           {isLoading ? "Subscribing..." : "Subscribe"}

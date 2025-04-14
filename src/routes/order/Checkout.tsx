@@ -30,10 +30,12 @@ const Checkout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="w-full bg-gray-50 flex flex-col items-center p-12 gap-10">
-      <h2 className="text-3xl font-semibold">Checkout</h2>
+    <div className="w-full bg-gray-50 dark:bg-gray-600 flex flex-col items-center p-12 gap-10">
+      <h2 className="text-3xl dark:text-gray-100 text-gray-800 font-semibold">
+        Checkout
+      </h2>
       <StepNavigation currentStep={step} />
-      <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-6 flex flex-col gap-4">
+      <div className="w-full max-w-2xl bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 flex flex-col gap-4">
         {step === 1 && (
           <UserInfoForm
             onSubmit={(data) => {

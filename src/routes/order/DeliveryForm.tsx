@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { deliverySchema } from "./schems";
 import { DeliveryFormData, DeliveryFormProps } from "../../types";
+import Button from "../../components/buttons/Button";
 import clsx from "clsx";
 
 const deliveryMethods = [
@@ -30,17 +31,19 @@ const DeliveryForm = ({ onSubmit, onBack }: DeliveryFormProps) => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4 max-w-3xl w-full items-center"
     >
-      <h2 className="text-2xl font-bold mb-4">Delivery Method</h2>
+      <h2 className="text-2xl font-bold mb-4 dark:text-white text-gray-800">
+        Delivery Method
+      </h2>
       <div className="flex gap-4 w-full flex-col max-w-xs mb-6">
         {deliveryMethods.map((el, index) => (
           <label
             key={index}
             className={clsx(
-              "flex items-center justify-between p-4 rounded-lg border cursor-pointer transition",
+              "flex items-center justify-between p-4 rounded-lg border cursor-pointer transition text-gray-800 dark:text-gray-100",
               {
-                "border-gray-300 hover:border-gray-400":
+                "border-gray-300 dark:border-gray-400 hover:border-gray-400":
                   selectedMethod !== el.method,
-                "border-emerald-400 bg-emerald-50 ":
+                "border-emerald-400 bg-emerald-50 dark:bg-emerald-100 dark:text-gray-800":
                   selectedMethod === el.method,
               }
             )}
@@ -50,12 +53,19 @@ const DeliveryForm = ({ onSubmit, onBack }: DeliveryFormProps) => {
                 type="radio"
                 value={el.method}
                 {...register("deliveryMethod")}
-                className="cursor-pointer mr-5 focus:outline-none accent-gray-700"
+                className="cursor-pointer mr-5 focus:outline-none accent-gray-700 dark:accent-gray-800"
               />
               <span className="font-medium">{el.method}</span>
             </div>
 
-            <span className="font-semibold text-gray-700 ml-5">${el.cost}</span>
+            <span
+              className={clsx("font-semibold text-gray-600 ml-5", {
+                "dark:text-gray-100 ": selectedMethod !== el.method,
+                " dark:text-gray-800": selectedMethod === el.method,
+              })}
+            >
+              ${el.cost}
+            </span>
           </label>
         ))}
         {errors.deliveryMethod && (
@@ -64,19 +74,12 @@ const DeliveryForm = ({ onSubmit, onBack }: DeliveryFormProps) => {
       </div>
 
       <div className="flex gap-4 w-full">
-        <button
-          type="button"
-          onClick={onBack}
-          className="bg-gray-white p-3 w-full text-gray-700 border border-gary-700 cursor-pointer rounded-md hover:bg-gray-700 hover:text-white transition duration-300"
-        >
+        <Button type="button" onClick={onBack} variant="outline" fullWidth>
           Previous Step
-        </button>
-        <button
-          type="submit"
-          className="w-full p-3 bg-gray-700 text-white rounded-md cursor-pointer  hover:bg-gray-600 transition duration-300"
-        >
+        </Button>
+        <Button type="submit" variant="primary" fullWidth>
           Next Step
-        </button>
+        </Button>
       </div>
     </form>
   );

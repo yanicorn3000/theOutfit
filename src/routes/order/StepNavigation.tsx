@@ -21,9 +21,10 @@ const StepNavigation = ({ currentStep }: StepNavigationProps) => {
               className={clsx(
                 "flex-1 text-center pb-2 transition-colors duration-200 cursor-pointer",
                 {
-                  "text-emerald-500 font-semibold border-b-2 border-emerald-500":
+                  "text-emerald-500 dark:text-emerald-400 font-semibold border-b-2 border-emerald-500":
                     isActive,
-                  "text-gray-400 border-b-2 border-transparent": !isActive,
+                  "text-gray-400 dark:text-gray-200 border-b-2 border-transparent":
+                    !isActive,
                 }
               )}
             >

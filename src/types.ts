@@ -1,3 +1,5 @@
+import { ButtonHTMLAttributes } from "react";
+
 export type LoginData = {
   username: string;
   password: string;
@@ -148,3 +150,10 @@ export type PaymentFormProps = {
 export type ThemeState = {
   theme: "light" | "dark";
 };
+
+//BUTTON
+
+export type ButtonProps = {
+  variant?: "primary" | "success" | "outline";
+  fullWidth?: boolean;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
