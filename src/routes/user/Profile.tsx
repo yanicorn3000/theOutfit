@@ -76,7 +76,7 @@ const Profile = () => {
               {orders.map((order, index) => (
                 <li
                   key={index}
-                  className="border border-gray-200  rounded-lg shadow-sm bg-white dark:bg-gray-700"
+                  className="border border-gray-200 dark:border-gray-500 rounded-lg shadow-sm bg-white dark:bg-gray-700"
                 >
                   <div className="flex justify-between items-center bg-gradient-to-r from-gray-100 to-gray-200 p-4 rounded-t-lg text-gray-600  dark:from-gray-800  dark:to-gray-700 dark:text-white">
                     <h4 className="font-semibold">Order #{order.id}</h4>
@@ -121,7 +121,7 @@ const Profile = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center mt-4 p-4 border-t border-gray-200">
+                  <div className="flex justify-between items-center mt-4 p-4 border-t dark:border-gray-500 border-gray-200">
                     <p className=" text-gray-70 dark:text-gray-100">
                       <span className="font-semibold">Subtotal:</span> $
                       {order.total.toFixed(2)}
@@ -143,7 +143,7 @@ const Profile = () => {
       <div className="flex w-full max-w-2xl gap-5 items-center justify-between mt-6">
         <Link
           to="/outfit"
-          className="bg-gray-50 w-full text-center max-w-xs text-gray-700 border border-gary-700 cursor-pointer font-medium  p-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-300"
+          className="bg-gray-50 w-full text-center max-w-xs text-gray-700 dark:bg-gray-800 dark:text-gray-200  border border-gray-700 cursor-pointer font-medium  p-3 rounded-lg hover:bg-gray-700 hover:text-white transition duration-300"
         >
           Back to shopping
         </Link>

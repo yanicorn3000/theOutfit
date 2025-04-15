@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faXmark,
@@ -8,14 +8,11 @@ import {
   faShoppingCart,
   faUser,
   faMagnifyingGlass,
-  faSun,
-  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { RootState } from "../../redux/store";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toggleTheme } from "../../redux/themeSlice";
+import { useSelector } from "react-redux";
 import clsx from "clsx";
+import Topbar from "./Topbar";
 
 const navItems: { id: string; title: string; link: string }[] = [
   { id: "category-1", title: "Womenswear", link: "/outfit/women" },
@@ -33,8 +30,6 @@ const Header: React.FC = () => {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
-  const dispatch = useDispatch();
-  const theme = useSelector((state: RootState) => state.theme.theme);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,32 +41,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <div className="w-full bg-gray-800  dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-2 text-sm">
-        <div className="container mx-auto flex justify-center items-center relative">
-          <div className="text-center text-gray-100 dark:text-gray-200 h-5 overflow-hidden">
-            <div className="transition-opacity duration-500 ease-in-out">
-              Free Standard Delivery from 300$
-            </div>
-          </div>
-
-          <div className="absolute right-0 top-1/2 -translate-y-1/2">
-            <label className="relative items-center cursor-pointer">
-              <input
-                type="checkbox"
-                className="sr-only peer"
-                checked={theme === "dark"}
-                onChange={() => dispatch(toggleTheme())}
-              />
-              <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none flex items-center rounded-full peer peer-checked:bg-gray-400 transition-colors duration-300"></div>
-              <FontAwesomeIcon
-                icon={theme === "light" ? faMoon : faSun}
-                className="absolute text-[17px] h-6 w-5 left-0.5 top-1 transition-transform duration-300 peer-checked:translate-x-full dark:text-gray-100 text-gray-700"
-              />
-            </label>
-          </div>
-        </div>
-      </div>
-
+      <Topbar />
       <nav className="bg-white dark:bg-gray-700 md:shadow-md p-6 sticky">
         <div className="container mx-auto flex flex-col items-center">
           <Link
@@ -135,16 +105,16 @@ const Header: React.FC = () => {
                     type="text"
                     value={searchQuery}
                     placeholder="Search..."
-                    className="border-1 border-gray-300 text-gray-500 dark:text-gray-100 rounded-l-md px-3 py-1 focus:outline-none border-r-0 focus:ring-gray-400 dark:bg-gray-700"
+                    className="border-1 border-gray-300 dark:border-gray-500 text-gray-500 dark:text-gray-100 rounded-l-md px-3 py-1 focus:outline-none border-r-0 focus:ring-gray-400 dark:bg-gray-700"
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
                   <button
                     type="submit"
-                    className="bg-gray-400 text-gray-700 border-1 dark:bg-gray-700 dark:border-gray-300 border-gray-400 rounded-r-md px-3 py-1 cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-600 hover:dark:border-gray-400  hover:border-gray-500 transition duration-300 ease-in-out"
+                    className="bg-gray-400 text-gray-700 border-1 dark:bg-gray-700 dark:border-gray-500 border-gray-400 rounded-r-md px-3 py-1 cursor-pointer hover:bg-gray-500 hover:dark:bg-gray-600 hover:dark:border-gray-400  hover:border-gray-500 transition duration-300 ease-in-out"
                   >
                     <FontAwesomeIcon
                       icon={faMagnifyingGlass}
-                      className="text-gray-100 text-lg"
+                      className="text-gray-100 dark:text-gray-300 text-lg"
                     />
                   </button>
                 </form>

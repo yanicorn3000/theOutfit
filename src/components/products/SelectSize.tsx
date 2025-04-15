@@ -37,7 +37,7 @@ const SelectSize: React.FC<SizeProps> = ({
             setIsError(false);
           }}
           className={clsx(
-            "transition duration-300 w-full appearance-none cursor-pointer bg-white dark:bg-gray-700 focus:outline-none border rounded-md px-4 py-2",
+            "transition duration-300 w-full appearance-none cursor-pointer bg-white dark:bg-gray-700 dark:border-gray-500 focus:outline-none border rounded-md px-4 py-2",
             {
               "text-gray-700 dark:text-white border-gray-300": !isError,
               "border-rose-500 animate-shake text-rose-500 dark:text-rose-500":

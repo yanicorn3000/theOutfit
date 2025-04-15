@@ -32,24 +32,24 @@ const Cart = () => {
   ];
 
   return (
-    <div className="flex flex-col justify-center items-center gap-6 p-15 bg-white dark:bg-gray-600 w-full h-full">
+    <div className="flex flex-col justify-center items-center gap-10 p-12 bg-white dark:bg-gray-600 w-full h-full">
       <h2 className="font-semibold text-3xl text-gray-700 dark:text-white">
         Your Cart
       </h2>
       {cart.length === 0 ? (
-        <div className="flex flex-col justify-center items-center gap-3">
+        <div className="flex flex-col h-50 justify-start items-center gap-6">
           <p className="text-gray-500 dark:text-gray-100">
             There’s nothing in your cart yet...
           </p>
           <Link
             to="/outfit"
-            className="bg-gray-700  text-white cursor-pointer rounded hover:bg-gray-500 dark:hover:bg-gray-800 px-4 py-2"
+            className="bg-gray-700 w-full text-center  text-white cursor-pointer rounded hover:bg-gray-500 dark:hover:bg-gray-800 px-4 py-3"
           >
             Back to shopping
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-2 mt-6 w-full gap-8">
+        <div className="grid grid-cols-2 w-full gap-8">
           <ul className="flex flex-col w-full gap-4 max-w-2xl">
             {cart.map((item, index) => {
               return (
@@ -143,7 +143,7 @@ const Cart = () => {
             <div className="flex gap-6">
               <Link
                 to="/outfit"
-                className="bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-white border border-gary-800 cursor-pointer rounded hover:bg-gray-700 hover:text-white px-4 py-2 transition duration-300"
+                className="bg-gray-50 text-gray-700 dark:bg-gray-800 dark:text-gray-200 border border-gray-800 dark:border-gray-500 cursor-pointer rounded hover:bg-gray-700 hover:text-white px-4 py-2 transition duration-300"
               >
                 Back to shopping
               </Link>
@@ -153,7 +153,7 @@ const Cart = () => {
                     ? "/outfit/checkout"
                     : "/outfit/login?redirect=/outfit/checkout"
                 }
-                className="bg-gray-700 font-semibold dark:bg-gray-200 dark:text-gray-800 text-white cursor-pointer rounded hover:bg-gray-600 dark:hover:bg-gray-300 px-4 py-2 border border-gray-800 dark:border-gray-300  transition duration-300 "
+                className="bg-gray-700 font-semibold dark:bg-gray-200 dark:text-gray-800 text-white cursor-pointer rounded hover:bg-gray-600 dark:hover:bg-gray-700 dark:hover:text-white px-4 py-2 border border-gray-800 dark:border-gray-400  transition duration-300 "
               >
                 Go to Checkout
               </Link>
