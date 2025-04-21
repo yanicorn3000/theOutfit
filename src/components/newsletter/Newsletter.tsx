@@ -80,7 +80,7 @@ const Newsletter: React.FC = () => {
           className="py-2 px-3 border-1 border-gray-700 bg-gray-700 text-white rounded-r-md hover:bg-gray-500 dark:hover:bg-gray-800 hover:border-gray-500 dark:hover:border-gray-400 dark:border-gray-400 cursor-pointer"
           disabled={isLoading}
         >
-          {isLoading ? "Subscribing..." : "Subscribe"}
+          {isLoading ? "Subscribing..." : "Join"}
         </button>
       </form>
 
