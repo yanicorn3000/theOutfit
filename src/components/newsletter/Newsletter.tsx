@@ -7,8 +7,8 @@ import clsx from "clsx";
 const schema = z.object({
   email: z
     .string()
-    .email("Please, provide a valid email")
-    .min(1, "Email is required"),
+    .min(1, "Email is required")
+    .email("Please, provide a valid email"),
 });
 
 type FormData = z.infer<typeof schema>;
