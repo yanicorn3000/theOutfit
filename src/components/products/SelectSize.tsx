@@ -18,6 +18,8 @@ const SelectSize: React.FC<SizeProps> = ({
     return category === "jewelery" ? jewelrySizes : clothingSizes;
   };
 
+  console.log("jestem tutaj");
+
   return (
     <>
       <div
@@ -31,6 +33,7 @@ const SelectSize: React.FC<SizeProps> = ({
         )}
       >
         <select
+          data-testid="size-select"
           value={selectedSize || ""}
           onChange={(e) => {
             setSelectedSize(e.target.value);

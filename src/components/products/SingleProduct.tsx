@@ -12,12 +12,17 @@ const SingleProduct = () => {
   const [selectedSize, setSelectedSize] = useState<string>("Select size");
   const [isError, setIsError] = useState<boolean>(false);
 
-  if (error instanceof Error)
+  if (error) console.log("ERROR FROM useSingleProduct:", error);
+
+  if (error) {
+    const message =
+      error instanceof Error ? error.message : "Something went wrong";
     return (
-      <div className="text-red-600 text-center bg-red-300">
-        Error: {error.message}
+      <div className="text-red-600 text-center bg-red-300" role="alert">
+        Error: {message}
       </div>
     );
+  }
 
   if (!product) {
     return <Spinner />;
