@@ -23,6 +23,10 @@ export const handlers = [
   http.get("https://fakestoreapi.com/products/:productId", ({ params }) => {
     const { productId } = params;
 
+    if (productId === "error") {
+      return new HttpResponse("Internal Server Error", { status: 500 });
+    }
+
     const mockProduct = {
       id: Number(productId),
       title: `Mock Product ${productId}`,
@@ -38,9 +42,4 @@ export const handlers = [
 
     return HttpResponse.json(mockProduct);
   }),
-
-  http.get(
-    "https://fakestoreapi.com/products/:productId",
-    () => new HttpResponse("Internal Server Error", { status: 500 })
-  ),
 ];

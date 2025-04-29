@@ -10,7 +10,12 @@ import { server } from "../mocks/server";
 import { http, HttpResponse } from "msw";
 import "./setup";
 
-const queryClient = () => new QueryClient();
+const queryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+    },
+  });
 
 const renderWithProviders = () => {
   window.history.pushState({}, "Test Page", "/product/1");
@@ -63,21 +68,17 @@ describe("SingleProduct component", () => {
     expect(button).toBeInTheDocument();
   });
 
-  //   it.only("should show error message when API fails", async () => {
-  //     server.use(
-  //       http.get(
-  //         "https://fakestoreapi.com/products/:productId",
-  //         () => new HttpResponse("Internal Server Error", { status: 500 })
-  //       )
-  //     );
+  it("should show error message when API fails", async () => {
+    server.use(
+      http.get("https://fakestoreapi.com/products/:productId", () => {
+        return new HttpResponse("Internal Server Error", { status: 500 });
+      })
+    );
 
-  //     const test = renderWithProviders();
+    renderWithProviders();
 
-  //     await waitFor(() => {
-  //       return test.getByRole("alert");
-  //     });
+    const alert = await screen.findByRole("alert");
 
-  //     const error = await test.findByText("Error");
-  //     expect(error).toHaveTextContent(/Error:/i);
-  //   });
+    await waitFor(() => expect(alert).toBeInTheDocument());
+  });
 });

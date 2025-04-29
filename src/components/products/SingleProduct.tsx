@@ -12,8 +12,6 @@ const SingleProduct = () => {
   const [selectedSize, setSelectedSize] = useState<string>("Select size");
   const [isError, setIsError] = useState<boolean>(false);
 
-  if (error) console.log("ERROR FROM useSingleProduct:", error);
-
   if (error) {
     const message =
       error instanceof Error ? error.message : "Something went wrong";
