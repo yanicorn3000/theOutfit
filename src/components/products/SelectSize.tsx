@@ -18,8 +18,6 @@ const SelectSize: React.FC<SizeProps> = ({
     return category === "jewelery" ? jewelrySizes : clothingSizes;
   };
 
-  console.log("jestem tutaj");
-
   return (
     <>
       <div

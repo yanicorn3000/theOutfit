@@ -6,7 +6,7 @@ import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 const Stars = ({ rating }: { rating: number | null }) => {
   const actualRating = rating ?? 0;
   const fullStars = Math.floor(actualRating);
-  const halfStars = actualRating % 1 !== 0; //// Czy jest pół gwiazdki?
+  const halfStars = actualRating % 1 !== 0;
   const emptyStars = 5 - Math.ceil(actualRating);
 
   return (
