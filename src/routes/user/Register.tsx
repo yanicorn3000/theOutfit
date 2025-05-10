@@ -87,7 +87,7 @@ const formFields = [
 ];
 
 const Register = () => {
-  const { mutate, isLoading, isError, isSuccess } = useAddUserToApi();
+  const { mutate, isPending, isError, isSuccess } = useAddUserToApi();
 
   const {
     register,
@@ -137,10 +137,10 @@ const Register = () => {
 
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={isPending}
           className="w-full p-3 bg-blue-500 text-white rounded-md"
         >
-          {isLoading ? "Submitting..." : "Create User"}
+          {isPending ? "Submitting..." : "Create User"}
         </button>
 
         {isError && (

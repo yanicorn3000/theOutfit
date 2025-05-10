@@ -17,7 +17,7 @@ export default defineConfig({
   reporter: [["list"], ["html", { open: "never" }]],
   webServer: {
     command: "npm run preview",
-    port: 4173,
+    port: 5173,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

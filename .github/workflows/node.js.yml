@@ -50,9 +50,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Start server
-        run: npm run preview &
+        run: npm run build && npm run preview &
       - name: Wait for server to be ready
-        run: npx wait-on http://localhost:4173/outfit
+        run: npx wait-on http://localhost:5173/outfit
       - name: Run Playwright tests
         run: npx playwright test
       - uses: actions/upload-artifact@v4

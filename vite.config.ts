@@ -32,5 +32,8 @@ export default defineConfig({
 
     reporters: ["default", "html", "json"],
   },
+  preview: {
+    port: 5173,
+  },
   base: "/outfit",
 });
