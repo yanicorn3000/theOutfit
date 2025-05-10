@@ -15,4 +15,10 @@ export default defineConfig({
     baseURL: "http://localhost:5173/outfit",
   },
   reporter: [["list"], ["html", { open: "never" }]],
+  webServer: {
+    command: "npm run preview",
+    port: 4173,
+    reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
+  },
 });
