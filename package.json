@@ -65,6 +65,6 @@
     "wait-on": "^8.0.3"
   },
   "lint-staged": {
-    "**/*.{js,ts, tsx}": "eslint --fix"
+    "**/*.{js,ts,tsx}": "eslint --fix"
   }
 }
