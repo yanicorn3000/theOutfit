@@ -2,7 +2,8 @@ import { defineConfig } from "@playwright/test";
 import "dotenv/config";
 
 export default defineConfig({
-  testDir: process.env.TESTING_TOOL === "true" ? "./testingTool" : "./e2e",
+  testDir:
+    process.env.TESTING_TOOL === "true" ? "./tests/testingTool" : "./tests/e2e",
   timeout: 30000,
   expect: {
     timeout: 5000,

@@ -1,14 +1,8 @@
 import { ButtonHTMLAttributes } from "react";
 
-export type LoginData = {
-  username: string;
-  password: string;
-};
-
 export type LoginResponse = {
   token: string;
 };
-
 export type AddToCartProps = {
   id: number;
   title: string;

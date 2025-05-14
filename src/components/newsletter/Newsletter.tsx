@@ -35,14 +35,13 @@ const Newsletter: React.FC = () => {
 
     try {
       console.log("Data sent:", data);
-
       // Symulacja opóźnienia (np. oczekiwanie na odpowiedź serwera)
       setTimeout(() => {
         setMessage({
           text: "You have successfully subscribed to our newsletter!",
           type: "success",
         });
-        reset(); // Resetuje formularz po "udanym zapisie"
+        reset();
         setIsLoading(false);
         setTimeout(() => {
           setMessage(null);

@@ -4,8 +4,8 @@ import { getUser } from "../utils";
 const user = getUser();
 
 const initialState = {
-  isAuthenticated: !!user, // Sprawdzamy, czy użytkownik istnieje
-  user: user || null, // Jeśli użytkownik istnieje, zapisujemy go
+  isAuthenticated: !!user,
+  user: user || null,
 };
 
 const authSlice = createSlice({

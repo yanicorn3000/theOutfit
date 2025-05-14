@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { getUser } from "./utils";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import { LoginData } from "./types";
+import { LoginData } from "./routes/user/loginSchema";
 import { LoginResponse } from "./types";
 
 const API = "https://fakestoreapi.com";
@@ -184,8 +184,8 @@ export const useLogin = () => {
       const user = getUser();
       dispatch(loginSuccess(user));
     },
-    onError: () => {
-      alert("Invalid username or password");
+    onError: (error: Error) => {
+      console.error("Login error:", error.message);
     },
   });
 };
