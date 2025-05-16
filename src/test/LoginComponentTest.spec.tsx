@@ -70,6 +70,12 @@ describe("Login component", () => {
   });
 
   it("should show validation errors when submitting empty form", async () => {
+    const mutateMock = vi.fn();
+    (useLogin as Mock).mockReturnValue({
+      mutate: mutateMock,
+      isPending: false,
+      isError: false,
+    });
     (useIsAuthenticated as Mock).mockReturnValue(null);
 
     renderWithProviders(<Login />);
@@ -87,6 +93,8 @@ describe("Login component", () => {
       const passwordError = screen.getByText(/Password is required/i);
       expect(usernameError).toBeInTheDocument();
       expect(passwordError).toBeInTheDocument();
+
+      expect(mutateMock).not.toHaveBeenCalled();
     });
   });
 
@@ -127,11 +135,36 @@ describe("Login component", () => {
       isError: false,
     });
 
-    // przycisk powinien mieć atrybut disabled
+    renderWithProviders(<Login />);
+    const button = screen.getByRole("button", { name: /Logging in.../i });
+
+    expect(button).toBeDisabled();
   });
 
   it("should display error messages under inputs if validation fails", async () => {
-    // pusty formularz -> submit
-    // sprawdź, czy <p> z błędami pojawiają się pod inputami
+    const mutateMock = vi.fn();
+    const resetMock = vi.fn();
+    (useLogin as Mock).mockReturnValue({
+      mutate: mutateMock,
+      isPending: false,
+      isError: true,
+      reset: resetMock,
+    });
+    (useIsAuthenticated as Mock).mockReturnValue(null);
+
+    renderWithProviders(<Login />);
+
+    const usernameInput = screen.getByLabelText(/username/i);
+    const passwordInput = screen.getByLabelText(/password/i);
+    const submitButton = screen.getByRole("button", { name: /login/i });
+
+    await userEvent.type(usernameInput, "wronguser");
+    await userEvent.type(passwordInput, "wrongpassword");
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      const validationError = screen.getByText(/Invalid username or password/i);
+      expect(validationError).toBeInTheDocument();
+    });
   });
 });

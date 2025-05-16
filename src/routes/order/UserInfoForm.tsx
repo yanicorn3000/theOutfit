@@ -95,7 +95,7 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
   return (
     <form
       className="flex flex-col gap-4 max-w-3xl"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit((data) => onSubmit(data))}
     >
       <h2 className="text-2xl dark:text-white text-gray-800 font-bold mb-4 text-center">
         User Data

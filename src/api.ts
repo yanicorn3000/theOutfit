@@ -1,6 +1,6 @@
 import { Product } from "./types";
 import { useQuery } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { UserData } from "./routes/user/Register";
 import { loginSuccess } from "./redux/authSlice";
 import { useDispatch } from "react-redux";
@@ -174,7 +174,9 @@ export const useSendCart = () => {
   });
 };
 
-export const useLogin = () => {
+export const useLogin = (options?: {
+  onSuccess?: (data: LoginResponse) => void;
+}): UseMutationResult<LoginResponse, Error, LoginData> => {
   const dispatch = useDispatch();
 
   return useMutation<LoginResponse, Error, LoginData>({
@@ -183,6 +185,7 @@ export const useLogin = () => {
       localStorage.setItem("token", data.token);
       const user = getUser();
       dispatch(loginSuccess(user));
+      options?.onSuccess?.(data);
     },
     onError: (error: Error) => {
       console.error("Login error:", error.message);

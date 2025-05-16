@@ -11,7 +11,7 @@ const ProductList: React.FC = () => {
 
   if (error instanceof Error)
     return (
-      <div className="text-red-600 text-center bg-red-300">
+      <div className="text-rose-600 text-center bg-rose-300">
         Error: {error.message}
       </div>
     );

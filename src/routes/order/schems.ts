@@ -4,14 +4,17 @@ export const buyerSchema = z.object({
   name: z.object({
     firstname: z
       .string()
+      .nonempty("First name is required")
       .min(2, "First name should contain at least 2 characters"),
     lastname: z
       .string()
+      .nonempty("Last name is required")
       .min(2, "Last name should contain at least 2 characters"),
   }),
 
   phone: z
     .string()
+    .nonempty("Phone number is required")
     .regex(
       /^\d{1}-\d{3}-\d{3}-\d{4}$/,
       "Phone number should have format 123-456-789"
@@ -29,7 +32,10 @@ export const buyerSchema = z.object({
       .min(1, "House number should contain at least 1 character"),
   }),
 
-  email: z.string().email("Email should be valid"),
+  email: z
+    .string()
+    .nonempty("Email is required")
+    .email("Email should be valid"),
 });
 
 export const paymentSchema = z.object({

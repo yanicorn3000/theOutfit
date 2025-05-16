@@ -6,11 +6,13 @@ import { RootState } from "../../redux/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { data: user, isLoading, error } = useUserData();
   const orders = useSelector((state: RootState) => state.checkout.orders);
+  const navigate = useNavigate();
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Something went wrong!</p>;
@@ -23,6 +25,7 @@ const Profile = () => {
     dispatch(logout());
     localStorage.removeItem("token");
     alert("Logged out successfully!");
+    navigate("/outfit");
   };
 
   return (

@@ -86,7 +86,10 @@ const Header: React.FC = () => {
                   )}
                 </Link>
 
-                <Link to="/outfit/login" className="relative">
+                <Link
+                  to={isAuthenticated ? "/outfit/profile" : "/outfit/login"}
+                  className="relative"
+                >
                   {isAuthenticated ? (
                     <FontAwesomeIcon
                       icon={faCircleUser}

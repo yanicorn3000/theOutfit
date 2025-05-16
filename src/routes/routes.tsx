@@ -9,6 +9,7 @@ import Checkout from "./order/Checkout";
 import Register from "./user/Register";
 import Login from "./user/Login";
 import Search from "./search/Search";
+import Profile from "./user/Profile";
 
 const RoutesComponent = () => {
   return (
@@ -23,6 +24,7 @@ const RoutesComponent = () => {
       <Route path="/outfit/register" Component={Register} />
       <Route path="/outfit/login" Component={Login} />
       <Route path="/outfit/search" Component={Search} />
+      <Route path="/outfit/profile" Component={Profile} />
     </Routes>
   );
 };

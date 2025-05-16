@@ -6,15 +6,20 @@ import Profile from "./Profile";
 import Button from "../../components/buttons/Button";
 import { loginSchema, LoginData } from "./loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 
 const Login = () => {
-  const { mutate, isPending, isError, reset: resetMutation } = useLogin();
+  const mutation = useLogin({
+    onSuccess: () => {
+      const redirectUrl = searchParams.get("redirect");
+      navigate(redirectUrl || "/outfit/profile");
+    },
+  });
+
+  const { mutate, isPending, isError } = mutation;
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
@@ -24,22 +29,9 @@ const Login = () => {
 
   const isAuthenticated = useIsAuthenticated();
 
-  const username = watch("username");
-  const password = watch("password");
-
-  useEffect(() => {
-    if (isError && (username || password)) {
-      resetMutation();
-    }
-  }, [username, password, isError, resetMutation]);
-
   const onSubmit = (data: LoginData) => {
+    // reset();
     mutate(data);
-
-    const redirectUrl = searchParams.get("redirect");
-    if (redirectUrl) {
-      navigate(redirectUrl);
-    }
   };
 
   return isAuthenticated ? (
