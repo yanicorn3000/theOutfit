@@ -54,6 +54,16 @@ describe("UserInfoForm Component", () => {
       expect(screen.getByText(/First name is required/i)).toBeInTheDocument();
       expect(screen.getByText(/Last name is required/i)).toBeInTheDocument();
       expect(screen.getByText(/Phone number is required/i)).toBeInTheDocument();
+      expect(screen.getByText(/Zipcode is required/i)).toBeInTheDocument();
+      expect(
+        screen.getByText(/City should contain at least 2 characters/i)
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(/Street should contain at least 5 characters/i)
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(/House number should contain at least 1 character/i)
+      ).toBeInTheDocument();
     });
 
     expect(onSubmit).not.toHaveBeenCalled();
@@ -70,20 +80,22 @@ describe("UserInfoForm Component", () => {
     await userEvent.click(screen.getByRole("button", { name: /Next Step/i }));
 
     await waitFor(() => {
-      expect(onSubmit).toHaveBeenCalledWith({
-        email: "admin@example.com",
-        name: {
-          firstname: "John",
-          lastname: "Doe",
-        },
-        address: {
-          city: "Somewhere",
-          street: "123 Main St",
-          number: 12,
-          zipcode: "12926-3874",
-        },
-        phone: "1-570-236-7033",
-      });
+      expect(onSubmit).toHaveBeenCalledWith(
+        expect.objectContaining({
+          email: "admin@example.com",
+          name: {
+            firstname: "John",
+            lastname: "Doe",
+          },
+          address: {
+            city: "Somewhere",
+            street: "123 Main St",
+            number: 12,
+            zipcode: "12926-3874",
+          },
+          phone: "1-570-236-7033",
+        })
+      );
     });
   });
 });

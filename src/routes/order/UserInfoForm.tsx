@@ -81,7 +81,12 @@ const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
     reset,
   } = useForm<UserInfoFormData>({
     resolver: zodResolver(buyerSchema),
-    defaultValues: user || {},
+    defaultValues: user ?? {
+      email: "",
+      phone: "",
+      name: { firstname: "", lastname: "" },
+      address: { city: "", street: "", number: 0, zipcode: "" },
+    },
   });
 
   useEffect(() => {

@@ -1,6 +1,12 @@
 import { HttpResponse, http } from "msw";
 import { LoginData } from "../../routes/user/loginSchema";
+
 const API = "https://fakestoreapi.com";
+type CartRequestBody = {
+  userId: number;
+  date: string;
+  products: { productId: number; quantity: number }[];
+};
 
 export const handlers = [
   http.post(`${API}/auth/login`, async ({ request }) => {
@@ -35,13 +41,13 @@ export const handlers = [
         address: {
           street: "123 Main St",
           city: "Somewhere",
-          zipcode: "12345",
+          zipcode: "12926-3874",
           geolocation: {
             lat: "37.7749",
             long: "122.4194",
           },
         },
-        phone: "+1 123-456-7890",
+        phone: "1-570-236-7033",
       });
     }
 
@@ -85,5 +91,23 @@ export const handlers = [
     };
 
     return HttpResponse.json(mockProduct);
+  }),
+
+  http.post(`${API}/carts`, async ({ request }) => {
+    const body = await request.json();
+    const { userId, date, products } = body as CartRequestBody;
+
+    if (!userId || !Array.isArray(products)) {
+      return HttpResponse.json(
+        { message: "Invalid cart data" },
+        { status: 400 }
+      );
+    }
+    return HttpResponse.json({
+      id: Math.floor(Math.random() * 1000),
+      userId,
+      date,
+      products,
+    });
   }),
 ];

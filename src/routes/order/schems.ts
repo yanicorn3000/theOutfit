@@ -24,6 +24,7 @@ export const buyerSchema = z.object({
     city: z.string().min(2, "City should contain at least 2 characters"),
     zipcode: z
       .string()
+      .nonempty("Zipcode is required")
       .regex(/^\d{5}-\d{4}$/, "Postal code should have format 12345-6789")
       .min(6, "Postal code should contain at least 9 characters"),
     street: z.string().min(5, "Street should contain at least 5 characters"),
