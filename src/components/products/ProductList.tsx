@@ -1,13 +1,8 @@
-import { fetchProducts } from "../../api";
-import { useQuery } from "@tanstack/react-query";
+import { useProducts } from "../../api";
 import List from "./List";
-import { Product } from "../../types";
 
 const ProductList: React.FC = () => {
-  const { data, error } = useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
-  });
+  const { data, error } = useProducts();
 
   if (error instanceof Error)
     return (

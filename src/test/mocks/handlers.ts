@@ -1,7 +1,7 @@
 import { HttpResponse, http } from "msw";
 import { LoginData } from "../../routes/user/loginSchema";
+import { API } from "../../api";
 
-const API = "https://fakestoreapi.com";
 type CartRequestBody = {
   userId: number;
   date: string;
@@ -66,6 +66,29 @@ export const handlers = [
         category,
         image: "https://via.placeholder.com/150",
         rating: { rate: 4.5, count: 200 },
+      },
+    ]);
+  }),
+
+  http.get(`${API}/products`, () => {
+    return HttpResponse.json([
+      {
+        id: 1,
+        title: "Mock product",
+        price: 19.99,
+        description: "Sample product",
+        category: "electronics",
+        image: "https://via.placeholder.com/150",
+        rating: { rate: 4.5, count: 200 },
+      },
+      {
+        id: 2,
+        title: "Another mock product",
+        price: 9.99,
+        description: "Another sample product",
+        category: "jewelery",
+        image: "https://via.placeholder.com/150",
+        rating: { rate: 3.9, count: 90 },
       },
     ]);
   }),

@@ -10,7 +10,7 @@ import { RootState } from "./redux/store";
 import { LoginData } from "./routes/user/loginSchema";
 import { LoginResponse } from "./types";
 
-const API = "https://fakestoreapi.com";
+export const API = "https://fakestoreapi.com";
 const categories = ["men's clothing", "women's clothing", "jewelery"];
 
 export const fetchProducts = async () => {
