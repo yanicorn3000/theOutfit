@@ -35,39 +35,41 @@ const DeliveryForm = ({ onSubmit, onBack }: DeliveryFormProps) => {
         Delivery Method
       </h2>
       <div className="flex gap-4 w-full flex-col max-w-xs mb-6">
-        {deliveryMethods.map((el, index) => (
-          <label
-            key={index}
-            className={clsx(
-              "flex items-center justify-between p-4 rounded-lg border cursor-pointer transition text-gray-800 dark:text-gray-100",
-              {
-                "border-gray-300 dark:border-gray-400 hover:border-gray-400":
-                  selectedMethod !== el.method,
-                "border-emerald-400 bg-emerald-50 dark:bg-emerald-100 dark:text-gray-800":
-                  selectedMethod === el.method,
-              }
-            )}
-          >
-            <div className="flex items-center gap-3">
+        {deliveryMethods.map((el, index) => {
+          const id = `delivery-${index}`;
+
+          return (
+            <div key={id}>
               <input
+                id={id}
                 type="radio"
                 value={el.method}
                 {...register("deliveryMethod")}
-                className="cursor-pointer mr-5 focus:outline-none accent-gray-700 dark:accent-gray-800"
+                className="hidden"
               />
-              <span className="font-medium">{el.method}</span>
+              <label
+                htmlFor={id}
+                className={clsx(
+                  "flex items-center justify-between p-4 rounded-lg border cursor-pointer transition text-gray-800 dark:text-gray-100",
+                  {
+                    "border-gray-300 dark:border-gray-400 hover:border-gray-400":
+                      selectedMethod !== el.method,
+                    "border-emerald-400 bg-emerald-50 dark:bg-emerald-100 dark:text-gray-800":
+                      selectedMethod === el.method,
+                  }
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="font-medium">{el.method}</span>
+                </div>
+                <span className="font-semibold text-gray-600 ml-5">
+                  ${el.cost}
+                </span>
+              </label>
             </div>
+          );
+        })}
 
-            <span
-              className={clsx("font-semibold text-gray-600 ml-5", {
-                "dark:text-gray-100 ": selectedMethod !== el.method,
-                " dark:text-gray-800": selectedMethod === el.method,
-              })}
-            >
-              ${el.cost}
-            </span>
-          </label>
-        ))}
         {errors.deliveryMethod && (
           <span className="text-rose-500">{errors.deliveryMethod.message}</span>
         )}

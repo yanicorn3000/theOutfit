@@ -1,8 +1,11 @@
+ 
+
 import { screen, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach, Mock } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { renderWithProviders } from "./test-utils";
 import Checkout from "../routes/order/Checkout";
+import { SendCart } from "../types";
 import * as api from "../api";
 import * as authHook from "../redux/authHook";
 
@@ -35,12 +38,12 @@ describe("Checkout Component", () => {
     });
 
     vi.spyOn(api, "useSendCart").mockReturnValue({
-      mutate: (_data: any, options: any) => {
-        options?.onSuccess?.();
+      mutate: (data: SendCart, options?: any) => {
+        options?.onSuccess?.(null, data, undefined);
       },
       data: null,
       error: null,
-      isLoading: false,
+      isPending: false,
       isError: false,
       isSuccess: false,
       reset: vi.fn(),

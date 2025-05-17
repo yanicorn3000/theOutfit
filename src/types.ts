@@ -61,6 +61,12 @@ export type CartState = {
   subtotal: number;
 };
 
+export type SendCart = {
+  id: number;
+  quantity: number;
+  size: string;
+}[];
+
 //CHECKPOUT TYPES
 
 export type BuyerInfo = {
