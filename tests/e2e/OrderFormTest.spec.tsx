@@ -122,11 +122,11 @@ test.describe("Order Form fill in", () => {
     await expect(page.getByText("Total", { exact: true })).toBeVisible();
 
     await page.getByRole("button", { name: "Place Order" }).click();
-    await expect(page.locator(".modalBackground")).toBeVisible({
+    await expect(page.locator("text=Order Submitted!")).toBeVisible({
       timeout: 10000,
     });
-    await page.locator(".modalBackground button", { hasText: "Close" }).click();
-    await expect(page.locator(".modalBackground")).toBeHidden({
+    await page.locator("button", { hasText: "Close" }).click();
+    await expect(page.locator("text=Order Submitted!")).toBeHidden({
       timeout: 10000,
     });
   });
