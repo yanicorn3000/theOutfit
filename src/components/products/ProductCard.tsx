@@ -20,14 +20,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         description="Product was successfully added to Your Shopping Cart!"
         buttons={[
           {
-            label: "Go To Cart",
-            variant: "success",
-            onClick: () => navigate("/outfit/cart"),
-          },
-          {
             label: "Back to Shopping",
             variant: "primary",
             onClick: () => setIsModalOpen(false),
+          },
+          {
+            label: "Go To Cart",
+            variant: "success",
+            onClick: () => navigate("/outfit/cart"),
           },
         ]}
       />

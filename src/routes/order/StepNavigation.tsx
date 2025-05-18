@@ -19,7 +19,7 @@ const StepNavigation = ({ currentStep }: StepNavigationProps) => {
             <div
               key={num}
               className={clsx(
-                "flex-1 text-center pb-2 transition-colors duration-200 cursor-pointer",
+                "flex-1 text-center pb-2 transition-colors duration-200",
                 {
                   "text-emerald-500 dark:text-emerald-400 font-semibold border-b-2 border-emerald-500":
                     isActive,
