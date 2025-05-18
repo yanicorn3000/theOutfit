@@ -49,13 +49,13 @@ const Cart = () => {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-2 w-full gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full gap-8">
           <ul className="flex flex-col w-full gap-4 max-w-2xl">
             {cart.map((item, index) => {
               return (
                 <li
                   key={index}
-                  className="flex justify-between items-start w-full  gap-4 py-4 border-b border-b-gray-300 dark:border-b-gray-500 last-of-type:border-none"
+                  className="flex justify-between items-start w-full gap-4 py-4 border-b border-b-gray-300 dark:border-b-gray-500 last-of-type:border-none"
                 >
                   <div className="flex items-center justify-center w-30 h-30 bg-white rounded-md ">
                     <img

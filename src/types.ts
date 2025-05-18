@@ -12,6 +12,26 @@ export type AddToCartProps = {
   variant?: "primary" | "secondary";
   isError?: boolean;
   setIsError: (isError: boolean) => void;
+  onSuccess?: () => void;
+};
+
+export type AddToCartModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+//MENU
+
+export type NavItem = {
+  id: string;
+  title: string;
+  link: string;
+};
+
+export type MobileMenuProps = {
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  items: NavItem[];
 };
 
 //PRODUCT TYPES

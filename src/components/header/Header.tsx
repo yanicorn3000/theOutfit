@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faXmark,
   faBars,
   faCircleUser,
   faShoppingCart,
@@ -13,6 +12,7 @@ import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 import clsx from "clsx";
 import Topbar from "./Topbar";
+import MobileMenu from "./MobileMenu";
 
 const navItems: { id: string; title: string; link: string }[] = [
   { id: "category-1", title: "Womenswear", link: "/outfit/women" },
@@ -127,26 +127,15 @@ const Header: React.FC = () => {
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <FontAwesomeIcon
-                  icon={isOpen ? faXmark : faBars}
-                  className="text-gray-800 text-2xl ml-4"
+                  icon={faBars}
+                  className="text-gray-800 dark:text-gray-100 text-2xl ml-4"
                 />
               </button>
             </div>
           </div>
         </div>
-
-        {isOpen && (
-          <div className="md:hidden flex flex-col space-y-4 p-4 bg-white shadow-md">
-            {navItems.map((item) => {
-              return (
-                <Link to={item.link} className="hover:text-gray-600">
-                  {item.title}
-                </Link>
-              );
-            })}
-          </div>
-        )}
       </nav>
+      <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} items={navItems} />
     </>
   );
 };
