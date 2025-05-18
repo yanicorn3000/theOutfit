@@ -1,26 +1,36 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Stars from "./Stars";
-import { Product } from "../../types";
+import { ProductCardProps } from "../../types";
 import { useState } from "react";
-import AddToCartModal from "./AddToCartModal";
 import ActionBox from "./ActionBox";
-
-type ProductCardProps = {
-  product: Product;
-};
+import GenericModal from "../modal/GenericModal";
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState<string>("Select size");
   const [isError, setIsError] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
-      <AddToCartModal
+      <GenericModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        title="Product added!"
+        description="Product was successfully added to Your Shopping Cart!"
+        buttons={[
+          {
+            label: "Go To Cart",
+            variant: "success",
+            onClick: () => navigate("/outfit/cart"),
+          },
+          {
+            label: "Back to Shopping",
+            variant: "primary",
+            onClick: () => setIsModalOpen(false),
+          },
+        ]}
       />
-
       <div className="group relative overflow-hidden shadow-md rounded-lg box-border">
         <Link
           to={`/outfit/${product.id}`}

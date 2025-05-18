@@ -5,7 +5,8 @@ import { useSingleProduct } from "../../api";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Spinner from "../spinner/Spinner";
-import AddToCartModal from "./AddToCartModal";
+import GenericModal from "../modal/GenericModal";
+import { useNavigate } from "react-router-dom";
 
 const SingleProduct = () => {
   const { productId } = useParams();
@@ -13,6 +14,7 @@ const SingleProduct = () => {
   const [selectedSize, setSelectedSize] = useState<string>("Select size");
   const [isError, setIsError] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   if (error) {
     const message =
@@ -30,9 +32,23 @@ const SingleProduct = () => {
 
   return (
     <>
-      <AddToCartModal
+      <GenericModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        title="Product added!"
+        description="Product was successfully added to Your Shopping Cart!"
+        buttons={[
+          {
+            label: "Go To Cart",
+            variant: "success",
+            onClick: () => navigate("/outfit/cart"),
+          },
+          {
+            label: "Back to Shopping",
+            variant: "primary",
+            onClick: () => setIsModalOpen(false),
+          },
+        ]}
       />
 
       <div className="grid grid-cols-1 gap-6 lg:gap-2 lg:grid-cols-2 w-full items-center justify-center bg-gradient-to-b from-white via-gray-50 to-gray-50 px-12 py-12 lg:py-20 dark:from-gray-500 dark:via-gray-500 dark:to-gray-500">

@@ -15,9 +15,20 @@ export type AddToCartProps = {
   onSuccess?: () => void;
 };
 
-export type AddToCartModalProps = {
+//MODAL
+
+export type ModalButton = {
+  label: string;
+  onClick: () => void;
+  variant?: "success" | "primary" | "outline";
+};
+
+export type GenericModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  title: string;
+  description?: string;
+  buttons: ModalButton[];
 };
 
 //MENU
@@ -58,6 +69,10 @@ export type Product = {
   category: string;
   image: string;
   rating: Rating;
+};
+
+export type ProductCardProps = {
+  product: Product;
 };
 
 export type ListProps = {
