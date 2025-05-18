@@ -73,9 +73,11 @@ const Cart = () => {
                       Size: <span className="font-semibold">{item.size}</span>
                     </p>
                     <div className="flex items-center gap-3 text-gray-600 dark:text-white">
-                      <p className="text-md ">${item.price}</p>
+                      <p data-testid="product-price" className="text-md ">
+                        ${item.price}
+                      </p>
                       <p>x</p>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-2">
                         <button
                           className="px-2 py-0.5 text-gray-500 dark:text-white text-md cursor-pointer bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-500 rounded-md hover:bg-gray-400 dark:hover:bg-gray-800 hover:text-white"
                           onClick={() =>
@@ -86,7 +88,7 @@ const Cart = () => {
                         >
                           -
                         </button>
-                        {item.quantity}
+                        <span data-testid="item-quantity">{item.quantity}</span>
                         <button
                           className="px-2 py-0.5 text-gray-500 dark:text-white text-md cursor-pointer bg-gray-100 dark:bg-gray-700 border dark:hover:bg-gray-800 border-gray-200 dark:border-gray-500 rounded-md hover:bg-gray-400 hover:text-white"
                           onClick={() =>
@@ -101,6 +103,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <button
+                    aria-label="Remove item"
                     onClick={() =>
                       dispatch(removeFromCart({ id: item.id, size: item.size }))
                     }

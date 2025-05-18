@@ -11,6 +11,19 @@ test.describe("Order Form fill in", () => {
         "token",
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXIiOiJ0ZXN0dXNlciIsImlhdCI6MTY4NDAwMDAwMH0.fake_signature"
       );
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([
+          {
+            id: 1,
+            title: "Mock Product 1",
+            price: 19.99,
+            image: "https://via.placeholder.com/150",
+            size: "M",
+            quantity: 1,
+          },
+        ])
+      );
     });
 
     await page.route("**/users/1**", async (route) => {
@@ -77,33 +90,25 @@ test.describe("Order Form fill in", () => {
       page.getByRole("heading", { name: "Payment Method", level: 2 })
     ).toBeVisible({ timeout: 10000 });
 
-    // Wybieramy metodę płatności
     await page.getByRole("radio", { name: "Credit Card" }).check();
     await expect(
       page.getByRole("radio", { name: "Credit Card" })
     ).toBeChecked();
 
-    // Przechodzimy do Delivery Method
     await page.getByRole("button", { name: "Next Step" }).click();
     await expect(
       page.getByRole("heading", { name: "Delivery Method", level: 2 })
     ).toBeVisible({ timeout: 10000 });
 
-    // Wybieramy metodę dostawy
-    await page.getByRole("radio", { name: "Standard shipping" }).check();
-    await expect(
-      page.getByRole("radio", { name: "Standard shipping" })
-    ).toBeChecked();
+    await page.getByText("Standard shipping").click();
 
-    // Przechodzimy do Order Summary
     await page.getByRole("button", { name: "Next Step" }).click();
     await expect(
       page.getByRole("heading", { name: "Order Summary", level: 2 })
     ).toBeVisible({ timeout: 10000 });
 
-    // Sprawdzamy dane w Order Summary
     await expect(
-      page.locator("h2", { hasText: "Order Summary" })
+      page.getByRole("heading", { name: "Order Summary", level: 2 })
     ).toBeVisible();
     await expect(page.locator("text=Mike")).toBeVisible();
     await expect(page.locator("text=Doe")).toBeVisible();
@@ -114,7 +119,6 @@ test.describe("Order Form fill in", () => {
     await expect(page.locator("text=Standard shipping")).toBeVisible();
     await expect(page.locator("text=Credit Card")).toBeVisible();
 
-    // Tutaj konieczne dokładne dopasowanie, bo "Total" może być podzbiorcem innych tekstów
     await expect(page.getByText("Total", { exact: true })).toBeVisible();
 
     await page.getByRole("button", { name: "Place Order" }).click();

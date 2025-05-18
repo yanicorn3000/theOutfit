@@ -7,10 +7,7 @@ const GlobalSpinner = () => {
   if (!isFetching) return null;
 
   return (
-    <div
-      className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-60 flex items-center justify-center z-50"
-      role="status"
-    >
+    <div className="fixed top-0 left-0 w-full h-full bg-white bg-opacity-60 flex items-center justify-center z-50">
       <Spinner />
     </div>
   );

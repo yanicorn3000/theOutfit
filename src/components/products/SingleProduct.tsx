@@ -16,7 +16,7 @@ const SingleProduct = () => {
     const message =
       error instanceof Error ? error.message : "Something went wrong";
     return (
-      <div className="text-red-600 text-center bg-red-300" role="alert">
+      <div className="text-rose-600 text-center bg-rose-300" role="alert">
         Error: {message}
       </div>
     );

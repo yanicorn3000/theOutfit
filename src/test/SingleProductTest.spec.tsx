@@ -1,40 +1,14 @@
 import { describe, it, expect } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import SingleProduct from "../components/products/SingleProduct";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { store } from "../redux/store";
-import { Provider } from "react-redux";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { renderWithRouter } from "./test-utils";
 import userEvent from "@testing-library/user-event";
 import { server } from "./mocks/server";
 import { http, HttpResponse } from "msw";
 
-const queryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: { retry: false },
-    },
-  });
-
-const renderWithProviders = () => {
-  window.history.pushState({}, "Test Page", "/product/1");
-
-  return render(
-    <QueryClientProvider client={queryClient()}>
-      <Provider store={store}>
-        <MemoryRouter initialEntries={["/product/1"]}>
-          <Routes>
-            <Route path="/product/:productId" element={<SingleProduct />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>
-    </QueryClientProvider>
-  );
-};
-
 describe("SingleProduct component", () => {
   it("should render product fetched via MSW", async () => {
-    renderWithProviders();
+    renderWithRouter(<SingleProduct />, { route: "/products/1" });
 
     const title = await screen.findByText("Mock Product 1");
     const price = screen.getByText("$29.99");
@@ -49,12 +23,20 @@ describe("SingleProduct component", () => {
     expect(image).toHaveAttribute("src", "https://via.placeholder.com/150");
   });
 
+  it("should show loading spinner while product is loading", async () => {
+    renderWithRouter(<SingleProduct />, { route: "/products/1" });
+
+    const spinner = screen.getByRole("status");
+    expect(spinner).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    });
+  });
+
   it("should update selected size when a size is chosen", async () => {
     const user = userEvent.setup();
-    renderWithProviders();
-
-    const spinner = screen.queryByRole("status");
-    expect(spinner).not.toBeInTheDocument();
+    renderWithRouter(<SingleProduct />, { route: "/products/1" });
 
     const sizeSelect = await screen.findByDisplayValue("--Select size--");
 
@@ -74,10 +56,24 @@ describe("SingleProduct component", () => {
       })
     );
 
-    renderWithProviders();
+    renderWithRouter(<SingleProduct />, { route: "/products/1" });
 
     const alert = await screen.findByRole("alert");
 
     await waitFor(() => expect(alert).toBeInTheDocument());
+  });
+
+  it("should show error when trying to add to cart without selecting size", async () => {
+    const user = userEvent.setup();
+    renderWithRouter(<SingleProduct />, { route: "/products/1" });
+
+    await screen.findByText("Mock Product 1");
+
+    const button = screen.getByText("Add to cart");
+
+    await user.click(button);
+
+    const select = screen.getByTestId("size-select");
+    expect(select).toHaveClass("border-rose-500");
   });
 });
