@@ -55,7 +55,7 @@ docker build -t the-outfit .
 
 docker run -d -p 8080:80 the-outfit
 
-# 3. Otwórz przeglądarkę i wejdź na: http://localhost:8080
+# 3. Otwórz przeglądarkę i wejdź na: http://localhost:8080/outfit/
 
 ```
 
