@@ -78,7 +78,7 @@ npx playwright test
 npm run test
 ```
 
-👤 Autor
+## 👩 Autor
 
-@yanicorn300
+@yanicorn3000
 https://github.com/yanicorn3000
