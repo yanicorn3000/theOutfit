@@ -17,14 +17,14 @@ const Search = () => {
     );
   }, [data, query]);
 
-  if (isPending) return <Spinner />;
+  if (isPending || !data) return <Spinner />;
   if (error) return <div>Something went wrong.</div>;
 
   return (
-    <div className="p-6 flex flex-col justify-center items-center bg-gradient-to-b from-white via-gray-50 to-gray-50 h-full">
+    <>
       {filtered?.length === 0 ? (
-        <div className="flex flex-col justify-center items-center gap-3 p-10">
-          <p className="font-semibold text-xl text-gray-700 ">
+        <div className="flex flex-col justify-center items-center gap-3 p-10 min-h-100 h-full dark:bg-gray-600 bg-gray-50">
+          <p className="font-semibold text-xl text-gray-700 dark:text-white">
             No search results for "{query}"
           </p>
           <Link
@@ -37,7 +37,7 @@ const Search = () => {
       ) : (
         <List data={filtered} title={`Search results for "${query}"`} />
       )}
-    </div>
+    </>
   );
 };
 
