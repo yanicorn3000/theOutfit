@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import GenericModal from "../../components/modal/GenericModal";
+import Spinner from "../../components/spinner/Spinner";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
   if (error) return <p>Something went wrong!</p>;
   if (!user) return <p>No user data available.</p>;
 

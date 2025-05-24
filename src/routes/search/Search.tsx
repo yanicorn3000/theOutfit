@@ -1,14 +1,24 @@
 import { useProducts } from "../../api";
 import List from "../../components/products/List";
-import { Link } from "react-router-dom";
 import { Product } from "../../types";
+import { useLocation, Link } from "react-router-dom";
+import { useMemo } from "react";
+import Spinner from "../../components/spinner/Spinner";
 
 const Search = () => {
-  const query = new URLSearchParams(window.location.search).get("q") || "";
-  const { data } = useProducts();
-  const filtered = (data ?? []).filter((item: Product) =>
-    item.title.toLowerCase().includes(query.toLowerCase())
-  );
+  const location = useLocation();
+  const query = useMemo(() => {
+    return new URLSearchParams(location.search).get("q") || "";
+  }, [location.search]);
+  const { data, isPending, error } = useProducts();
+  const filtered = useMemo(() => {
+    return (data ?? []).filter((item: Product) =>
+      item.title.toLowerCase().includes(query.toLowerCase())
+    );
+  }, [data, query]);
+
+  if (isPending) return <Spinner />;
+  if (error) return <div>Something went wrong.</div>;
 
   return (
     <div className="p-6 flex flex-col justify-center items-center bg-gradient-to-b from-white via-gray-50 to-gray-50 h-full">

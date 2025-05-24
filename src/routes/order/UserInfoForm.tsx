@@ -72,6 +72,9 @@ const dotGetter = (obj: any, path: FieldNames) => {
     | FieldError
     | undefined;
 };
+//funkcja pomocnicza - dostanie się do błędów: path to np. "name.firstname"; split(".") zamienia to na ["name", "firstname"];
+//reduce(...) przechodzi po każdym poziomie obiektu obj (np. errors); Zwraca errors["name"]["firstname"] – czyli cały obiekt błędu
+//„zejdź poziom niżej w obiekcie tylko jeśli poprzedni poziom istnieje”.
 
 const UserInfoForm = ({ onSubmit, user }: UserInfoFormProps) => {
   const {

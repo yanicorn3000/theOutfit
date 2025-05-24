@@ -20,7 +20,7 @@ const App = () => {
     if (user) {
       dispatch(setUser(user)); // Przywracamy stan użytkownika po odświeżeniu
     }
-  }, [dispatch]);
+  }, [dispatch]); //efekt odpala się tylko raz (bo dispatch jest stabilny)
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
